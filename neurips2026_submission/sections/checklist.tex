@@ -1,0 +1,85 @@
+\section*{NeurIPS Paper Checklist}
+\begin{enumerate}
+
+\item \textbf{Claims}
+\item[] Question: Do the main claims made in the abstract and introduction accurately reflect the paper's contributions and scope?
+\item[] Answer: \answerYes{}
+\item[] Justification: The abstract and introduction state scoped contributions around problem framing, benchmark/evaluator design, and role-aware real-trace methodology, and Section~7 explicitly presents the empirical results as a controlled validation packet rather than as a prevalence study or finalized leaderboard benchmark.
+
+\item \textbf{Limitations}
+\item[] Question: Does the paper discuss the limitations of the work performed by the authors?
+\item[] Answer: \answerYes{}
+\item[] Justification: Limitations are explicitly discussed in the Limitations section, including scarcity of clean real positives, heterogeneous logging surfaces across platforms, evaluator-semantics coupling in Experiment~1, and the scoped nature of the current five-family validation slice.
+
+\item \textbf{Theory assumptions and proofs}
+\item[] Question: For each theoretical result, does the paper provide the full set of assumptions and a complete (and correct) proof?
+\item[] Answer: \answerNA{}
+\item[] Justification: The paper does not claim formal theorem/proof contributions; Appendix~\ref{app:theory_discussion} provides conceptual analysis rather than theorem statements.
+
+\item \textbf{Experimental result reproducibility}
+\item[] Question: Does the paper fully disclose all the information needed to reproduce the main experimental results of the paper to the extent that it affects the main claims and/or conclusions of the paper (regardless of whether the code and data are provided or not)?
+\item[] Answer: \answerYes{}
+\item[] Justification: The protocol, split design, metrics, collection workflow, and reproducibility boundary are specified in Section~7, Appendix~F (\textit{Reproducibility protocol}), and Appendix~\ref{app:ops} (\textit{What an external reader could reproduce}); the anonymous supplementary material includes reviewer-side task packs, evaluator/aggregation code, result artifacts, and rerun instructions for the exact-replay layer, while still marking hosted-endpoint studies as protocol-replayable and raw account-linked traces as non-redistributable.
+
+\item \textbf{Open access to data and code}
+\item[] Question: Does the paper provide open access to the data and code, with sufficient instructions to faithfully reproduce the main experimental results, as described in supplemental material?
+\item[] Answer: \answerYes{}
+\item[] Justification: The anonymous supplementary material includes reviewer-accessible code and artifact packages with synthetic task packs, loader/evaluator code, aggregation scripts, paper-linked result artifacts, dataset card, Croissant metadata, and rerun instructions for the exact-replay layer. Appendix~\ref{app:ops} states the retained boundary explicitly: exact replay for the synthetic core and artifact checks, protocol replay for hosted-endpoint studies, public release of the core synthetic benchmark resources after acceptance, and exclusion of raw platform traces or other account-linked workflow artifacts.
+
+\item \textbf{Experimental setting/details}
+\item[] Question: Does the paper specify all the training and test details (e.g., data splits, hyperparameters, how they were chosen, type of optimizer) necessary to understand the results?
+\item[] Answer: \answerYes{}
+\item[] Justification: The benchmark split, instance counts, detector setup, model set, and turn-scaling settings are documented in Section~7 and Appendix~F.
+
+\item \textbf{Experiment statistical significance}
+\item[] Question: Does the paper report error bars suitably and correctly defined or other appropriate information about the statistical significance of the experiments?
+\item[] Answer: \answerYes{}
+\item[] Justification: The paper reports bootstrap confidence intervals and matched-pair McNemar tests in Section~7, with supplementary paired-control significance in Appendix~G.
+
+\item \textbf{Experiments compute resources}
+\item[] Question: For each experiment, does the paper provide sufficient information on the computer resources (type of compute workers, memory, time of execution) needed to reproduce the experiments?
+\item[] Answer: \answerYes{}
+\item[] Justification: Appendix~\ref{app:ops} reports the exact-replay CPU path, number of trajectories, API-vs-local execution split, RTX~3090-class sensitivity-rerun environment, A100~80GB open-weight pilot environment and runtimes, and shared decoding configuration. The supplementary package also includes a compute/runtime note that separates exact replay from protocol-replayable hosted endpoint studies.
+
+\item \textbf{Code of ethics}
+\item[] Question: Does the research conducted in the paper conform, in every respect, with the NeurIPS Code of Ethics?
+\item[] Answer: \answerYes{}
+\item[] Justification: The work is an evaluation-focused safety study using controlled synthetic tasks and adapted logs, with no human-subject intervention or deployment of harmful capabilities.
+
+\item \textbf{Broader impacts}
+\item[] Question: Does the paper discuss both potential positive societal impacts and negative societal impacts of the work performed?
+\item[] Answer: \answerYes{}
+\item[] Justification: Appendix~\ref{app:ops} includes a dedicated broader-impacts paragraph that discusses both the defensive value of persistent-state evaluation and the risk of misuse or over-interpretation.
+
+\item \textbf{Safeguards}
+\item[] Question: Does the paper describe safeguards that have been put in place for responsible release of data or models that have a high risk for misuse (e.g., pre-trained language models, image generators, or scraped datasets)?
+\item[] Answer: \answerYes{}
+\item[] Justification: Appendix~\ref{app:ops} specifies a release boundary that includes synthetic tasks and derived annotations while excluding raw platform traces, session-compaction artifacts, and other sensitive or non-redistributable workflow data.
+
+\item \textbf{Licenses for existing assets}
+\item[] Question: Are the creators or original owners of assets (e.g., code, data, models), used in the paper, properly credited and are the license and terms of use explicitly mentioned and properly respected?
+\item[] Answer: \answerYes{}
+\item[] Justification: Appendix~\ref{app:ops} and the supplementary asset-license matrix state that released code uses Apache-2.0, synthetic task packs/result artifacts/documentation use CC BY 4.0, vendor-hosted and open-weight models remain under their respective terms/licenses, and raw account-linked platform traces and compacted session artifacts are not redistributed.
+
+\item \textbf{New assets}
+\item[] Question: Are new assets introduced in the paper well documented and is the documentation provided alongside the assets?
+\item[] Answer: \answerYes{}
+\item[] Justification: New benchmark schema, trajectory schema, and evaluation protocol are documented in Appendices~A--G with explicit structure and usage boundaries, and the anonymous supplementary material includes accompanying task files, code, and reviewer-facing rerun instructions.
+
+\item \textbf{Crowdsourcing and research with human subjects}
+\item[] Question: For crowdsourcing experiments and research with human subjects, does the paper include the full text of instructions given to participants and screenshots, if applicable, as well as details about compensation (if any)?
+\item[] Answer: \answerNA{}
+\item[] Justification: The study does not involve crowdsourcing or human-subject experiments.
+
+\item \textbf{Institutional review board (IRB) approvals or equivalent for research with human subjects}
+\item[] Question: Does the paper describe potential risks incurred by study participants, whether such risks were disclosed to the subjects, and whether Institutional Review Board (IRB) approvals (or an equivalent approval/review based on the requirements of your country or institution) were obtained?
+\item[] Answer: \answerNA{}
+\item[] Justification: No human-subject data collection or intervention is conducted in this work.
+
+\item \textbf{Declaration of LLM usage}
+\item[] Question: Does the paper describe the usage of LLMs if it is an important, original, or non-standard component of the core methods in this research?
+\item[] Answer: \answerYes{}
+\item[] Justification: LLM agents are the central evaluation object, and their role in long-horizon stateful workflows is described throughout Sections~3--7.
+
+\end{enumerate}
+

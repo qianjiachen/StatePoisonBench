@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "experiment_id": "E20",
+    "name": "Bayesian Posterior Sensitivity (Pooled Manual API Counts)",
+    "generated_at_utc": "2026-04-12T09:00:40.015649+00:00",
+    "seed": 20260412,
+    "n_draws_per_prior": 400000,
+    "note": "Posterior sensitivity over three symmetric priors using pooled S16 counts; delta is defined as RTG rate minus vanilla rate."
+  },
+  "base_counts_from_s16": {
+    "vanilla": {
+      "k": 1,
+      "n": 152
+    },
+    "rtg": {
+      "k": 0,
+      "n": 152
+    }
+  },
+  "priors": {
+    "uniform_beta_1_1": {
+      "prior": {
+        "a": 1.0,
+        "b": 1.0
+      },
+      "posterior_shapes": {
+        "vanilla": {
+          "a": 2.0,
+          "b": 152.0
+        },
+        "rtg": {
+          "a": 1.0,
+          "b": 153.0
+        }
+      },
+      "prob_rtg_non_worsening": 0.75037,
+      "prob_delta_in_rope_abs_le_0p02": 0.8838075,
+      "delta_credible_interval_95": [
+        -0.03112517484959337,
+        0.014780567501697721
+      ]
+    },
+    "jeffreys_beta_0p5_0p5": {
+      "prior": {
+        "a": 0.5,
+        "b": 0.5
+      },
+      "posterior_shapes": {
+        "vanilla": {
+          "a": 1.5,
+          "b": 151.5
+        },
+        "rtg": {
+          "a": 0.5,
+          "b": 152.5
+        }
+      },
+      "prob_rtg_non_worsening": 0.8184925,
+      "prob_delta_in_rope_abs_le_0p02": 0.919265,
+      "delta_credible_interval_95": [
+        -0.02794908298315887,
+        0.009922093418932198
+      ]
+    },
+    "symmetric_beta_2_2": {
+      "prior": {
+        "a": 2.0,
+        "b": 2.0
+      },
+      "posterior_shapes": {
+        "vanilla": {
+          "a": 3.0,
+          "b": 153.0
+        },
+        "rtg": {
+          "a": 2.0,
+          "b": 154.0
+        }
+      },
+      "prob_rtg_non_worsening": 0.6892225,
+      "prob_delta_in_rope_abs_le_0p02": 0.8180875,
+      "delta_credible_interval_95": [
+        -0.03616257594513991,
+        0.021338244021233264
+      ]
+    }
+  },
+  "summary": {
+    "prob_rtg_non_worsening_range": [
+      0.6892225,
+      0.8184925
+    ],
+    "prob_delta_in_rope_abs_le_0p02_range": [
+      0.8180875,
+      0.919265
+    ],
+    "delta_credible_interval_lower_range": [
+      -0.03616257594513991,
+      -0.02794908298315887
+    ],
+    "delta_credible_interval_upper_range": [
+      0.009922093418932198,
+      0.021338244021233264
+    ]
+  }
+}

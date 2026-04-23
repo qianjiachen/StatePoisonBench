@@ -1,0 +1,1584 @@
+{
+  "generated_at_utc": "2026-04-23T11:43:49.169133+00:00",
+  "overall": {
+    "checks": 220,
+    "passed": 220,
+    "failed": 0
+  },
+  "sections": {
+    "exp1": [
+      {
+        "metric": "AgentDojo-style detection.detection_rate",
+        "tex": 0.407,
+        "artifact_raw": 0.4071207430340557,
+        "artifact_rounded": 0.407,
+        "match": true
+      },
+      {
+        "metric": "AgentDojo-style detection.f1",
+        "tex": 0.554,
+        "artifact_raw": 0.5536842105263158,
+        "artifact_rounded": 0.554,
+        "match": true
+      },
+      {
+        "metric": "AgentDojo-style detection.false_positive_rate",
+        "tex": 0.116,
+        "artifact_raw": 0.11581920903954802,
+        "artifact_rounded": 0.116,
+        "match": true
+      },
+      {
+        "metric": "HarmBench-style detection.detection_rate",
+        "tex": 0.41,
+        "artifact_raw": 0.4102167182662539,
+        "artifact_rounded": 0.41,
+        "match": true
+      },
+      {
+        "metric": "HarmBench-style detection.f1",
+        "tex": 0.548,
+        "artifact_raw": 0.5480868665977249,
+        "artifact_rounded": 0.548,
+        "match": true
+      },
+      {
+        "metric": "HarmBench-style detection.false_positive_rate",
+        "tex": 0.158,
+        "artifact_raw": 0.15819209039548024,
+        "artifact_rounded": 0.158,
+        "match": true
+      },
+      {
+        "metric": "Naive LLM query.detection_rate",
+        "tex": 0.666,
+        "artifact_raw": 0.6656346749226006,
+        "artifact_rounded": 0.666,
+        "match": true
+      },
+      {
+        "metric": "Naive LLM query.f1",
+        "tex": 0.742,
+        "artifact_raw": 0.7420189818809318,
+        "artifact_rounded": 0.742,
+        "match": true
+      },
+      {
+        "metric": "Naive LLM query.false_positive_rate",
+        "tex": 0.234,
+        "artifact_raw": 0.2344632768361582,
+        "artifact_rounded": 0.234,
+        "match": true
+      }
+    ],
+    "exp2": [
+      {
+        "metric": "Claude-3.5-Sonnet.rtg",
+        "tex": 0.443,
+        "artifact_raw": 0.443,
+        "artifact_rounded": 0.443,
+        "match": true
+      },
+      {
+        "metric": "Claude-3.5-Sonnet.vanilla",
+        "tex": 0.595,
+        "artifact_raw": 0.595,
+        "artifact_rounded": 0.595,
+        "match": true
+      },
+      {
+        "metric": "DeepSeek-V3.rtg",
+        "tex": 0.449,
+        "artifact_raw": 0.449,
+        "artifact_rounded": 0.449,
+        "match": true
+      },
+      {
+        "metric": "DeepSeek-V3.vanilla",
+        "tex": 0.615,
+        "artifact_raw": 0.615,
+        "artifact_rounded": 0.615,
+        "match": true
+      },
+      {
+        "metric": "GPT-4o.rtg",
+        "tex": 0.434,
+        "artifact_raw": 0.434,
+        "artifact_rounded": 0.434,
+        "match": true
+      },
+      {
+        "metric": "GPT-4o.vanilla",
+        "tex": 0.557,
+        "artifact_raw": 0.557,
+        "artifact_rounded": 0.557,
+        "match": true
+      },
+      {
+        "metric": "Llama-3.1-70B.rtg",
+        "tex": 0.533,
+        "artifact_raw": 0.533,
+        "artifact_rounded": 0.533,
+        "match": true
+      },
+      {
+        "metric": "Llama-3.1-70B.vanilla",
+        "tex": 0.709,
+        "artifact_raw": 0.709,
+        "artifact_rounded": 0.709,
+        "match": true
+      },
+      {
+        "metric": "Qwen2.5-72B.rtg",
+        "tex": 0.473,
+        "artifact_raw": 0.473,
+        "artifact_rounded": 0.473,
+        "match": true
+      },
+      {
+        "metric": "Qwen2.5-72B.vanilla",
+        "tex": 0.654,
+        "artifact_raw": 0.654,
+        "artifact_rounded": 0.654,
+        "match": true
+      }
+    ],
+    "exp3": [
+      {
+        "metric": "1.avg_drift",
+        "tex": 0.093,
+        "artifact_raw": 0.09275759731192727,
+        "artifact_rounded": 0.093,
+        "match": true
+      },
+      {
+        "metric": "1.violation_rate",
+        "tex": 0.16,
+        "artifact_raw": 0.16,
+        "artifact_rounded": 0.16,
+        "match": true
+      },
+      {
+        "metric": "10.avg_drift",
+        "tex": 1.41,
+        "artifact_raw": 1.4103179924650755,
+        "artifact_rounded": 1.41,
+        "match": true
+      },
+      {
+        "metric": "10.violation_rate",
+        "tex": 0.41,
+        "artifact_raw": 0.41,
+        "artifact_rounded": 0.41,
+        "match": true
+      },
+      {
+        "metric": "20.avg_drift",
+        "tex": 3.84,
+        "artifact_raw": 3.839690857920458,
+        "artifact_rounded": 3.84,
+        "match": true
+      },
+      {
+        "metric": "20.violation_rate",
+        "tex": 0.76,
+        "artifact_raw": 0.76,
+        "artifact_rounded": 0.76,
+        "match": true
+      },
+      {
+        "metric": "3.avg_drift",
+        "tex": 0.339,
+        "artifact_raw": 0.33877274267641483,
+        "artifact_rounded": 0.339,
+        "match": true
+      },
+      {
+        "metric": "3.violation_rate",
+        "tex": 0.22,
+        "artifact_raw": 0.22,
+        "artifact_rounded": 0.22,
+        "match": true
+      },
+      {
+        "metric": "5.avg_drift",
+        "tex": 0.616,
+        "artifact_raw": 0.6163204030971409,
+        "artifact_rounded": 0.616,
+        "match": true
+      },
+      {
+        "metric": "5.violation_rate",
+        "tex": 0.29,
+        "artifact_raw": 0.29,
+        "artifact_rounded": 0.29,
+        "match": true
+      },
+      {
+        "metric": "50.avg_drift",
+        "tex": 16.842,
+        "artifact_raw": 16.84163716127477,
+        "artifact_rounded": 16.842,
+        "match": true
+      },
+      {
+        "metric": "50.violation_rate",
+        "tex": 0.97,
+        "artifact_raw": 0.97,
+        "artifact_rounded": 0.97,
+        "match": true
+      }
+    ],
+    "s1": [],
+    "s10": [],
+    "s11_api": [],
+    "s11_open": [],
+    "s12_s10": [],
+    "s12_s11": [],
+    "s13": [
+      {
+        "metric": "claude_haiku_4_5_20251001.delta",
+        "tex": 0.026,
+        "artifact_raw": 0.026,
+        "artifact_rounded": 0.026,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.non_worsening",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.rtg_violation_rate",
+        "tex": 0.605,
+        "artifact_raw": 0.605,
+        "artifact_rounded": 0.605,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.vanilla_violation_rate",
+        "tex": 0.579,
+        "artifact_raw": 0.579,
+        "artifact_rounded": 0.579,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.delta",
+        "tex": 0.026,
+        "artifact_raw": 0.026,
+        "artifact_rounded": 0.026,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.non_worsening",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.rtg_violation_rate",
+        "tex": 0.605,
+        "artifact_raw": 0.605,
+        "artifact_rounded": 0.605,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.vanilla_violation_rate",
+        "tex": 0.579,
+        "artifact_raw": 0.579,
+        "artifact_rounded": 0.579,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.delta",
+        "tex": 0.105,
+        "artifact_raw": 0.105,
+        "artifact_rounded": 0.105,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.non_worsening",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.rtg_violation_rate",
+        "tex": 0.605,
+        "artifact_raw": 0.605,
+        "artifact_rounded": 0.605,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.vanilla_violation_rate",
+        "tex": 0.5,
+        "artifact_raw": 0.5,
+        "artifact_rounded": 0.5,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.delta",
+        "tex": 0.132,
+        "artifact_raw": 0.132,
+        "artifact_rounded": 0.132,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.non_worsening",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.rtg_violation_rate",
+        "tex": 0.711,
+        "artifact_raw": 0.711,
+        "artifact_rounded": 0.711,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.vanilla_violation_rate",
+        "tex": 0.579,
+        "artifact_raw": 0.579,
+        "artifact_rounded": 0.579,
+        "match": true
+      },
+      {
+        "metric": "overall.ci_hi",
+        "tex": 0.49,
+        "artifact_raw": 0.49,
+        "artifact_rounded": 0.49,
+        "match": true
+      },
+      {
+        "metric": "overall.ci_lo",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "overall.k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "overall.n",
+        "tex": 4.0,
+        "artifact_raw": 4.0,
+        "artifact_rounded": 4.0,
+        "match": true
+      },
+      {
+        "metric": "overall.rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      }
+    ],
+    "s14": [
+      {
+        "metric": "claude_haiku_4_5_20251001.auto_flagged.k",
+        "tex": 45.0,
+        "artifact_raw": 45.0,
+        "artifact_rounded": 45.0,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.auto_flagged.n",
+        "tex": 76.0,
+        "artifact_raw": 76.0,
+        "artifact_rounded": 76.0,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.clear_positive",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.fp_or_benign",
+        "tex": 44.0,
+        "artifact_raw": 44.0,
+        "artifact_rounded": 44.0,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.rtg_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_haiku_4_5_20251001.vanilla_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.auto_flagged.k",
+        "tex": 45.0,
+        "artifact_raw": 45.0,
+        "artifact_rounded": 45.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.auto_flagged.n",
+        "tex": 76.0,
+        "artifact_raw": 76.0,
+        "artifact_rounded": 76.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.clear_positive",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.fp_or_benign",
+        "tex": 45.0,
+        "artifact_raw": 45.0,
+        "artifact_rounded": 45.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.rtg_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "claude_sonnet_4_5_20250929.vanilla_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.auto_flagged.k",
+        "tex": 42.0,
+        "artifact_raw": 42.0,
+        "artifact_rounded": 42.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.auto_flagged.n",
+        "tex": 76.0,
+        "artifact_raw": 76.0,
+        "artifact_rounded": 76.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.clear_positive",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.fp_or_benign",
+        "tex": 42.0,
+        "artifact_raw": 42.0,
+        "artifact_rounded": 42.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.rtg_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "deepseek_v3_2.vanilla_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "direction.ci_hi",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "direction.ci_lo",
+        "tex": 0.51,
+        "artifact_raw": 0.51,
+        "artifact_rounded": 0.51,
+        "match": true
+      },
+      {
+        "metric": "direction.k",
+        "tex": 4.0,
+        "artifact_raw": 4.0,
+        "artifact_rounded": 4.0,
+        "match": true
+      },
+      {
+        "metric": "direction.n",
+        "tex": 4.0,
+        "artifact_raw": 4.0,
+        "artifact_rounded": 4.0,
+        "match": true
+      },
+      {
+        "metric": "direction.rate",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.auto_flagged.k",
+        "tex": 49.0,
+        "artifact_raw": 49.0,
+        "artifact_rounded": 49.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.auto_flagged.n",
+        "tex": 76.0,
+        "artifact_raw": 76.0,
+        "artifact_rounded": 76.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.clear_positive",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.fp_or_benign",
+        "tex": 42.0,
+        "artifact_raw": 42.0,
+        "artifact_rounded": 42.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.rtg_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "gemini_2_5_flash.vanilla_clear_rate",
+        "tex": 0.026,
+        "artifact_raw": 0.026,
+        "artifact_rounded": 0.026,
+        "match": true
+      },
+      {
+        "metric": "overall.auto_flagged.k",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "overall.auto_flagged.n",
+        "tex": 304.0,
+        "artifact_raw": 304.0,
+        "artifact_rounded": 304.0,
+        "match": true
+      },
+      {
+        "metric": "overall.clear_positive",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "overall.fp_or_benign",
+        "tex": 173.0,
+        "artifact_raw": 173.0,
+        "artifact_rounded": 173.0,
+        "match": true
+      },
+      {
+        "metric": "overall.rtg_clear_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "overall.vanilla_clear_rate",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "precision.k",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "precision.n",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "precision.rate",
+        "tex": 0.006,
+        "artifact_raw": 0.006,
+        "artifact_rounded": 0.006,
+        "match": true
+      }
+    ],
+    "s15": [
+      {
+        "metric": "agreement3.k",
+        "tex": 180.0,
+        "artifact_raw": 180.0,
+        "artifact_rounded": 180.0,
+        "match": true
+      },
+      {
+        "metric": "agreement3.kappa",
+        "tex": 0.939,
+        "artifact_raw": 0.939,
+        "artifact_rounded": 0.939,
+        "match": true
+      },
+      {
+        "metric": "agreement3.n",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "agreement3.rate",
+        "tex": 0.994,
+        "artifact_raw": 0.994,
+        "artifact_rounded": 0.994,
+        "match": true
+      },
+      {
+        "metric": "agreement_bin.k",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "agreement_bin.kappa",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "agreement_bin.n",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "agreement_bin.rate",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "clear.primary",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "clear.replay",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "n_audited",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      }
+    ],
+    "s16": [
+      {
+        "metric": "fisher_p",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "rtg.ci_hi",
+        "tex": 0.025,
+        "artifact_raw": 0.025,
+        "artifact_rounded": 0.025,
+        "match": true
+      },
+      {
+        "metric": "rtg.ci_lo",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "rtg.k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "rtg.n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "rtg.one_sided_upper",
+        "tex": 0.02,
+        "artifact_raw": 0.02,
+        "artifact_rounded": 0.02,
+        "match": true
+      },
+      {
+        "metric": "rtg.rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "s15_binary.k",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "s15_binary.kappa",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "s15_binary.n",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "s15_binary.rate",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "s15_threeway.k",
+        "tex": 180.0,
+        "artifact_raw": 180.0,
+        "artifact_rounded": 180.0,
+        "match": true
+      },
+      {
+        "metric": "s15_threeway.kappa",
+        "tex": 0.939,
+        "artifact_raw": 0.939,
+        "artifact_rounded": 0.939,
+        "match": true
+      },
+      {
+        "metric": "s15_threeway.n",
+        "tex": 181.0,
+        "artifact_raw": 181.0,
+        "artifact_rounded": 181.0,
+        "match": true
+      },
+      {
+        "metric": "s15_threeway.rate",
+        "tex": 0.994,
+        "artifact_raw": 0.994,
+        "artifact_rounded": 0.994,
+        "match": true
+      },
+      {
+        "metric": "vanilla.ci_hi",
+        "tex": 0.036,
+        "artifact_raw": 0.036,
+        "artifact_rounded": 0.036,
+        "match": true
+      },
+      {
+        "metric": "vanilla.ci_lo",
+        "tex": 0.001,
+        "artifact_raw": 0.001,
+        "artifact_rounded": 0.001,
+        "match": true
+      },
+      {
+        "metric": "vanilla.k",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla.n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla.rate",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      }
+    ],
+    "s17": [
+      {
+        "metric": "current.n_per_arm",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "current.power",
+        "tex": 0.179,
+        "artifact_raw": 0.179,
+        "artifact_rounded": 0.179,
+        "match": true
+      },
+      {
+        "metric": "observed.abs_delta",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "required.n80",
+        "tex": 1117.0,
+        "artifact_raw": 1117.0,
+        "artifact_rounded": 1117.0,
+        "match": true
+      },
+      {
+        "metric": "required.n90",
+        "tex": 1494.0,
+        "artifact_raw": 1494.0,
+        "artifact_rounded": 1494.0,
+        "match": true
+      },
+      {
+        "metric": "scenario_0p02.n80",
+        "tex": 388.0,
+        "artifact_raw": 388.0,
+        "artifact_rounded": 388.0,
+        "match": true
+      },
+      {
+        "metric": "scenario_0p02.n90",
+        "tex": 519.0,
+        "artifact_raw": 519.0,
+        "artifact_rounded": 519.0,
+        "match": true
+      },
+      {
+        "metric": "scenario_0p03.n80",
+        "tex": 257.0,
+        "artifact_raw": 257.0,
+        "artifact_rounded": 257.0,
+        "match": true
+      },
+      {
+        "metric": "scenario_0p03.n90",
+        "tex": 343.0,
+        "artifact_raw": 343.0,
+        "artifact_rounded": 343.0,
+        "match": true
+      },
+      {
+        "metric": "scenario_0p05.n80",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "scenario_0p05.n90",
+        "tex": 203.0,
+        "artifact_raw": 203.0,
+        "artifact_rounded": 203.0,
+        "match": true
+      }
+    ],
+    "s18": [
+      {
+        "metric": "observed.delta",
+        "tex": -0.007,
+        "artifact_raw": -0.007,
+        "artifact_rounded": -0.007,
+        "match": true
+      },
+      {
+        "metric": "observed.fisher_p",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "observed.rtg_k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "observed.rtg_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "observed.rtg_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "observed.vanilla_k",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "observed.vanilla_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "observed.vanilla_rate",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.delta",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.fisher_p",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.rtg_k",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.rtg_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.rtg_rate",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.vanilla_k",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.vanilla_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "rtg_upgrade_1.vanilla_rate",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.delta",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.fisher_p",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.rtg_k",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.rtg_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.rtg_rate",
+        "tex": 0.007,
+        "artifact_raw": 0.007,
+        "artifact_rounded": 0.007,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.vanilla_k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.vanilla_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "swap_stress_2.vanilla_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.delta",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.fisher_p",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.rtg_k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.rtg_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.rtg_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.vanilla_k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.vanilla_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_downgrade_1.vanilla_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.delta",
+        "tex": -0.02,
+        "artifact_raw": -0.02,
+        "artifact_rounded": -0.02,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.fisher_p",
+        "tex": 0.248,
+        "artifact_raw": 0.248,
+        "artifact_rounded": 0.248,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.rtg_k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.rtg_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.rtg_rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.vanilla_k",
+        "tex": 3.0,
+        "artifact_raw": 3.0,
+        "artifact_rounded": 3.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.vanilla_n",
+        "tex": 152.0,
+        "artifact_raw": 152.0,
+        "artifact_rounded": 152.0,
+        "match": true
+      },
+      {
+        "metric": "vanilla_plus2_stress.vanilla_rate",
+        "tex": 0.02,
+        "artifact_raw": 0.02,
+        "artifact_rounded": 0.02,
+        "match": true
+      }
+    ],
+    "s19": [
+      {
+        "metric": "beta_0p5_0p5.ci_hi",
+        "tex": 0.01,
+        "artifact_raw": 0.009922093418932198,
+        "artifact_rounded": 0.01,
+        "match": true
+      },
+      {
+        "metric": "beta_0p5_0p5.ci_lo",
+        "tex": -0.028,
+        "artifact_raw": -0.02794908298315887,
+        "artifact_rounded": -0.028,
+        "match": true
+      },
+      {
+        "metric": "beta_0p5_0p5.p_non_worse",
+        "tex": 0.818,
+        "artifact_raw": 0.8184925,
+        "artifact_rounded": 0.818,
+        "match": true
+      },
+      {
+        "metric": "beta_0p5_0p5.p_rope",
+        "tex": 0.919,
+        "artifact_raw": 0.919265,
+        "artifact_rounded": 0.919,
+        "match": true
+      },
+      {
+        "metric": "beta_1_1.ci_hi",
+        "tex": 0.015,
+        "artifact_raw": 0.014780567501697721,
+        "artifact_rounded": 0.015,
+        "match": true
+      },
+      {
+        "metric": "beta_1_1.ci_lo",
+        "tex": -0.031,
+        "artifact_raw": -0.03112517484959337,
+        "artifact_rounded": -0.031,
+        "match": true
+      },
+      {
+        "metric": "beta_1_1.p_non_worse",
+        "tex": 0.75,
+        "artifact_raw": 0.75037,
+        "artifact_rounded": 0.75,
+        "match": true
+      },
+      {
+        "metric": "beta_1_1.p_rope",
+        "tex": 0.884,
+        "artifact_raw": 0.8838075,
+        "artifact_rounded": 0.884,
+        "match": true
+      },
+      {
+        "metric": "beta_2_2.ci_hi",
+        "tex": 0.021,
+        "artifact_raw": 0.021338244021233264,
+        "artifact_rounded": 0.021,
+        "match": true
+      },
+      {
+        "metric": "beta_2_2.ci_lo",
+        "tex": -0.036,
+        "artifact_raw": -0.03616257594513991,
+        "artifact_rounded": -0.036,
+        "match": true
+      },
+      {
+        "metric": "beta_2_2.p_non_worse",
+        "tex": 0.689,
+        "artifact_raw": 0.6892225,
+        "artifact_rounded": 0.689,
+        "match": true
+      },
+      {
+        "metric": "beta_2_2.p_rope",
+        "tex": 0.818,
+        "artifact_raw": 0.8180875,
+        "artifact_rounded": 0.818,
+        "match": true
+      },
+      {
+        "metric": "range.ci_lower_hi",
+        "tex": -0.028,
+        "artifact_raw": -0.02794908298315887,
+        "artifact_rounded": -0.028,
+        "match": true
+      },
+      {
+        "metric": "range.ci_lower_lo",
+        "tex": -0.036,
+        "artifact_raw": -0.03616257594513991,
+        "artifact_rounded": -0.036,
+        "match": true
+      },
+      {
+        "metric": "range.ci_upper_hi",
+        "tex": 0.021,
+        "artifact_raw": 0.021338244021233264,
+        "artifact_rounded": 0.021,
+        "match": true
+      },
+      {
+        "metric": "range.ci_upper_lo",
+        "tex": 0.01,
+        "artifact_raw": 0.009922093418932198,
+        "artifact_rounded": 0.01,
+        "match": true
+      },
+      {
+        "metric": "range.non_worse_hi",
+        "tex": 0.818,
+        "artifact_raw": 0.8184925,
+        "artifact_rounded": 0.818,
+        "match": true
+      },
+      {
+        "metric": "range.non_worse_lo",
+        "tex": 0.689,
+        "artifact_raw": 0.6892225,
+        "artifact_rounded": 0.689,
+        "match": true
+      },
+      {
+        "metric": "range.rope_hi",
+        "tex": 0.919,
+        "artifact_raw": 0.919265,
+        "artifact_rounded": 0.919,
+        "match": true
+      },
+      {
+        "metric": "range.rope_lo",
+        "tex": 0.818,
+        "artifact_raw": 0.8180875,
+        "artifact_rounded": 0.818,
+        "match": true
+      }
+    ],
+    "s2": [],
+    "s20_negative": [
+      {
+        "metric": "ambiguous",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "benign",
+        "tex": 17.0,
+        "artifact_raw": 17.0,
+        "artifact_rounded": 17.0,
+        "match": true
+      },
+      {
+        "metric": "clear",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "n_audited",
+        "tex": 17.0,
+        "artifact_raw": 17.0,
+        "artifact_rounded": 17.0,
+        "match": true
+      },
+      {
+        "metric": "n_trusted_write",
+        "tex": 12.0,
+        "artifact_raw": 12.0,
+        "artifact_rounded": 12.0,
+        "match": true
+      },
+      {
+        "metric": "upper",
+        "tex": 0.162,
+        "artifact_raw": 0.162,
+        "artifact_rounded": 0.162,
+        "match": true
+      }
+    ],
+    "s20_taxonomy": [
+      {
+        "metric": "ambiguous.persistence_success_unsafe_tool_escalation",
+        "tex": 2.0,
+        "artifact_raw": 2.0,
+        "artifact_rounded": 2.0,
+        "match": true
+      },
+      {
+        "metric": "ambiguous.unauthorized_action",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "ambiguous.unsafe_tool_escalation",
+        "tex": 4.0,
+        "artifact_raw": 4.0,
+        "artifact_rounded": 4.0,
+        "match": true
+      },
+      {
+        "metric": "likely.goal_drift",
+        "tex": 50.0,
+        "artifact_raw": 50.0,
+        "artifact_rounded": 50.0,
+        "match": true
+      },
+      {
+        "metric": "likely.goal_drift_persistence_success",
+        "tex": 41.0,
+        "artifact_raw": 41.0,
+        "artifact_rounded": 41.0,
+        "match": true
+      },
+      {
+        "metric": "likely.goal_drift_unauthorized_action",
+        "tex": 17.0,
+        "artifact_raw": 17.0,
+        "artifact_rounded": 17.0,
+        "match": true
+      },
+      {
+        "metric": "likely.unauthorized_action",
+        "tex": 45.0,
+        "artifact_raw": 45.0,
+        "artifact_rounded": 45.0,
+        "match": true
+      },
+      {
+        "metric": "negative.context_separation_write",
+        "tex": 3.0,
+        "artifact_raw": 3.0,
+        "artifact_rounded": 3.0,
+        "match": true
+      },
+      {
+        "metric": "negative.filtered_trusted_write",
+        "tex": 14.0,
+        "artifact_raw": 14.0,
+        "artifact_rounded": 14.0,
+        "match": true
+      },
+      {
+        "metric": "non_clear_total",
+        "tex": 180.0,
+        "artifact_raw": 180.0,
+        "artifact_rounded": 180.0,
+        "match": true
+      }
+    ],
+    "s21": [
+      {
+        "metric": "binary.k",
+        "tex": 36.0,
+        "artifact_raw": 36.0,
+        "artifact_rounded": 36.0,
+        "match": true
+      },
+      {
+        "metric": "binary.n",
+        "tex": 36.0,
+        "artifact_raw": 36.0,
+        "artifact_rounded": 36.0,
+        "match": true
+      },
+      {
+        "metric": "binary.rate",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "exact.k",
+        "tex": 36.0,
+        "artifact_raw": 36.0,
+        "artifact_rounded": 36.0,
+        "match": true
+      },
+      {
+        "metric": "exact.n",
+        "tex": 36.0,
+        "artifact_raw": 36.0,
+        "artifact_rounded": 36.0,
+        "match": true
+      },
+      {
+        "metric": "exact.rate",
+        "tex": 1.0,
+        "artifact_raw": 1.0,
+        "artifact_rounded": 1.0,
+        "match": true
+      },
+      {
+        "metric": "flagged_non_clear",
+        "tex": 12.0,
+        "artifact_raw": 12.0,
+        "artifact_rounded": 12.0,
+        "match": true
+      },
+      {
+        "metric": "hidden.k",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "hidden.n",
+        "tex": 24.0,
+        "artifact_raw": 24.0,
+        "artifact_rounded": 24.0,
+        "match": true
+      },
+      {
+        "metric": "hidden.rate",
+        "tex": 0.0,
+        "artifact_raw": 0.0,
+        "artifact_rounded": 0.0,
+        "match": true
+      },
+      {
+        "metric": "random_auto_negative_no_write",
+        "tex": 12.0,
+        "artifact_raw": 12.0,
+        "artifact_rounded": 12.0,
+        "match": true
+      },
+      {
+        "metric": "write_bearing_auto_negative",
+        "tex": 12.0,
+        "artifact_raw": 12.0,
+        "artifact_rounded": 12.0,
+        "match": true
+      }
+    ]
+  },
+  "failures": []
+}

@@ -1,0 +1,40 @@
+{
+  "meta": {
+    "experiment_id": "E18",
+    "name": "Power and Sample-Size Planning (Manual-Calibrated API Subset)",
+    "generated_at_utc": "2026-04-12T09:00:37.812311+00:00",
+    "note": "Two-proportion normal-approximation planning on S16 pooled manual rates; used to contextualize small-sample interpretability."
+  },
+  "summary": {
+    "observed_rates": {
+      "vanilla": 0.007,
+      "rtg": 0.0,
+      "absolute_delta": 0.007
+    },
+    "current_design": {
+      "n_per_arm": 152,
+      "approx_power_two_sided_alpha_0_05": 0.179
+    },
+    "required_n_per_arm_for_observed_delta": {
+      "power_0_80": 1117,
+      "power_0_90": 1494
+    },
+    "low_rate_scenario_grid": [
+      {
+        "delta_assumed": 0.02,
+        "n_per_arm_power80": 388,
+        "n_per_arm_power90": 519
+      },
+      {
+        "delta_assumed": 0.03,
+        "n_per_arm_power80": 257,
+        "n_per_arm_power90": 343
+      },
+      {
+        "delta_assumed": 0.05,
+        "n_per_arm_power80": 152,
+        "n_per_arm_power90": 203
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+\section{Extended Theoretical Discussion}
+\label{app:theory_discussion}
+
+Let $x_t$ denote visible turn-$t$ context, $z_t$ persistent state, $a_t$ action, and $V_t$ a violation event. Turn-local screening targets $P(V_t \mid x_t)$, whereas persistent-state safeguards must bound delayed risk $P(V_{t+k} \mid z_t,\ldots,z_{t+k},x_{t+k})$. In this view, persistent artifacts act as latent control channels: contamination can be written at one step, recovered later, and manifested only when the agent performs an authorization-sensitive action. This temporal separation motivates trajectory-aware evaluation and post-restore intervention windows, and explains why prompt-local filters alone are often insufficient.
+
+\section{Operational Details, Broader Impacts, and Release Considerations}
+\label{app:ops}
+
+\paragraph{Compute resources and runtime.} Experiments~1--2 use the shared 1000-instance core split and Experiment~3 uses 600 controlled multi-turn runs. The exact-replay layer (schema loading, seeded synthetic generators, deterministic aggregation, and table-artifact consistency checking) runs on a standard CPU Python environment with \texttt{numpy}/\texttt{scipy}; the loader and consistency checker complete in seconds, and the synthetic generators complete in seconds to a few minutes. Core API studies use GPT-4o, Claude-3.5-Sonnet, and DeepSeek-V3; the retrospective calibration ladder (S13--S23) adds Claude Haiku/Sonnet, DeepSeek-v3.2, and Gemini-2.5-Flash (304 endpoint episodes in S13--S20, plus S21/S22/S23 audit packets of 36/48/54 trajectories). S24 contributes a 12-episode prospective paired starter slice on \texttt{gpt-4.1-mini}. Appendix-only E26--E27 use the same balanced 48-trajectory S22 packet with local cached Qwen2.5 3B/7B judges on an RTX~3090-class 24\,GB server. S6 robustness reruns use an RTX~3090-class 24\,GB server; S9 open-weight pilots use an A100~80GB server (about 30 minutes for the 32B pilot and 75 minutes for the 14B sweep). Shared decoding defaults are temperature $0.7$, max tokens $4096$, and top-$p$ $0.9$ (when applicable).
+
+\paragraph{Reproducibility and release boundary.} We separate reproducibility into three layers: (i) exactly replayable synthetic benchmark assets (schema/split/generator/evaluator/analysis), (ii) protocol-replayable hosted-endpoint studies (prompts/rubrics/aggregation code, but not numerically frozen rates), and (iii) non-redistributable raw platform traces. The anonymous supplementary package includes reviewer-side synthetic task packs, loader/evaluator code, aggregation scripts, stored result artifacts, paper source, a dataset card, Croissant metadata, and an asset-license matrix needed for reruns of the exact-replay layer. We intend to publicly release the core synthetic benchmark resources, evaluator, aggregation scripts, and paper-linked artifacts after acceptance. The release excludes raw account-linked workflow logs, compacted session artifacts, private workflow state, credentials, proprietary model weights, and any other non-redistributable platform traces.
+
+\paragraph{Asset usage and broader impact.} Code is released under Apache-2.0; synthetic task packs, derived result artifacts, and documentation are released under CC BY 4.0. Vendor-hosted and open-weight models are used under their respective access terms/licenses, and model weights are not redistributed. The main benefit is surfacing delayed persistent-state risk that turn-local evaluation misses; the main risk is misuse or over-interpretation as prevalence evidence. We mitigate this by controlled synthetic design, conservative role-aware real-trace labeling, and withholding sensitive raw workflow artifacts.
+
+\clearpage
+\section{Table-to-Artifact Map}
+\label{app:artifact_map}
+
+All paths are repository-root relative.
+
+\refstepcounter{table}
+\begin{center}
+\textbf{Table \thetable}: Compact provenance map from paper tables to local result artifacts.
+\label{tab:artifact_map}
+\end{center}
+\begingroup
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2pt}
+\begin{tabularx}{\textwidth}{@{}L{1.9cm}L{6.0cm}L{1.9cm}Y@{}}
+\toprule
+\textbf{Paper Item} & \textbf{Artifact File(s)} & \textbf{UTC} & \textbf{Note} \\
+\midrule
+Table~\ref{tab:baseline} & \path{experiments/results/experiment_1_baseline.json} & 2026-04-01 & Exp1 detector metrics. \\
+Table~\ref{tab:model_scaling} & \path{experiments/results/experiment_2_scaling.json} & 2026-04-01 & Exp2 model rates. \\
+Table~\ref{tab:turn_scaling} & \path{experiments/results/experiment_3_turns.json} & 2026-04-01 & Exp3 turn scaling. \\
+Tables S1--S7 & \path{experiments/results/supplementary_experiments.json}; \path{experiments/results/server_robustness_sweeps_full.json} & 2026-04-01/02 & Core robustness packet. \\
+Tables S10--S12 & \path{experiments/results/e10_near_positive_causal_replay.json}; \path{experiments/results/e11_cross_stack_api_spot_check.json}; \path{experiments/results/e12_uncertainty_bounds.json} & 2026-04-11/12 & Bridge calibration packet. \\
+Tables S13--S19 & \path{experiments/results/} (E13--E20 JSON set) & 2026-04-12 & Retrospective calibration. \\
+Tables S20--S23 & \path{experiments/results/} (E21--E24 JSON set) & 2026-04-12 & External calibration. \\
+Table~\ref{tab:supp_s24_prospective_paired} & \path{experiments/results/e25_realpaired_new12ai_gpt41mini_6pairs/e25_real_paired_gpt_4_1_mini_6pairs.json} & 2026-04-13 & S24 paired starter slice. \\
+Post-S22 note & \path{experiments/results/e26_c1_observability_ladder.json}; \path{experiments/results/e26_c1_observability_ladder_qwen7b.json}; \path{experiments/results/e27_c1_observability_ladder_strict_qwen3b.json}; \path{experiments/results/e27_c1_observability_ladder_strict_qwen7b.json} & 2026-04-20 & Observability-ladder diagnostics on the S22 packet. \\
+\bottomrule
+\end{tabularx}
+\par
+\endgroup
+

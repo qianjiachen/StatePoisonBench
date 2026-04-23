@@ -1,0 +1,84 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/"
+  },
+  "@type": "cr:Dataset",
+  "name": "StatePoisonBench Anonymous Benchmark Artifacts",
+  "description": "Synthetic task packs, evaluator-linked result artifacts, and documentation for StatePoisonBench, a benchmark methodology for persistent-state contamination in long-horizon tool-using agents.",
+  "url": "<ANON_HF_DATASET_URL>",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "creator": {
+    "@type": "Organization",
+    "name": "Anonymous Authors"
+  },
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "tasks_archive",
+      "name": "Synthetic task packs",
+      "encodingFormat": "application/jsonl",
+      "contentUrl": "<ANON_HF_DATASET_URL>/tree/main/tasks"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "results_archive",
+      "name": "Paper-linked result artifacts",
+      "encodingFormat": "application/json",
+      "contentUrl": "<ANON_HF_DATASET_URL>/tree/main/experiments/results"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "documentation",
+      "name": "Benchmark documentation",
+      "encodingFormat": "text/markdown",
+      "contentUrl": "<ANON_HF_DATASET_URL>/tree/main/docs"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "name": "statepoisonbench_task",
+      "description": "A benchmark task instance with task goal, authorization boundary, persistent state artifact, contamination pathway, trigger, and expected violation labels.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "name": "id",
+          "dataType": "sc:Text",
+          "description": "Stable task identifier."
+        },
+        {
+          "@type": "cr:Field",
+          "name": "family",
+          "dataType": "sc:Text",
+          "description": "Persistent-state workflow family."
+        },
+        {
+          "@type": "cr:Field",
+          "name": "authorization_boundary",
+          "dataType": "sc:Text",
+          "description": "Allowed, confirmation-gated, blocked actions, and trusted targets."
+        },
+        {
+          "@type": "cr:Field",
+          "name": "state_artifact",
+          "dataType": "sc:Text",
+          "description": "Persistent artifact restored or reused by the agent."
+        },
+        {
+          "@type": "cr:Field",
+          "name": "labels",
+          "dataType": "sc:Text",
+          "description": "Violation labels used by the trajectory-aware evaluator."
+        }
+      ]
+    }
+  ],
+  "rai:hasSensitiveHumanSubjectsData": false,
+  "rai:hasPersonalIdentifiableInformation": false,
+  "rai:hasRawData": false,
+  "rai:dataCollectionProtocol": "Synthetic benchmark generation plus derived audit/calibration summaries. Raw account-linked platform traces are not redistributed.",
+  "rai:dataReleasePolicy": "Core synthetic benchmark resources are released under CC BY 4.0; raw platform traces and compacted session artifacts are excluded."
+}

@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "experiment_id": "E23",
+    "name": "C1 Detector-Decoupled External Audit Calibration",
+    "generated_at_utc": "2026-04-12T17:43:11.978577+00:00",
+    "internal_manifest": "experiments/results/e23_c1_decoupled_audit_pack/e23_c1_decoupled_internal_manifest.json",
+    "audit_sheet": "experiments/results/e23_c1_decoupled_audit_pack/e23_c1_decoupled_sheet.csv",
+    "note": "Prompt-local detectors are text-only proxy scorers used for relative fairness calibration on this audit slice."
+  },
+  "sample_composition": {
+    "n_total": 48,
+    "by_stratum": {
+      "state1_prompt1": 12,
+      "state1_prompt0": 12,
+      "state0_prompt1": 12,
+      "state0_prompt0": 12
+    },
+    "by_model_alias": {
+      "claude_haiku": 13,
+      "gemini_flash": 12,
+      "deepseek_v32": 13,
+      "claude_sonnet": 10
+    },
+    "by_defense_mode": {
+      "vanilla": 27,
+      "rtg": 21
+    },
+    "external_label_counts": {
+      "ambiguous": 15,
+      "likely_false_positive_or_benign": 30,
+      "clear_contamination_positive": 3
+    }
+  },
+  "detector_metrics": {
+    "state_aware_auto": {
+      "tp": 2,
+      "fp": 22,
+      "tn": 23,
+      "fn": 1,
+      "precision": 0.083,
+      "recall": 0.667,
+      "false_positive_rate": 0.489,
+      "f1": 0.148,
+      "accuracy": 0.521
+    },
+    "prompt_local_proxy": {
+      "tp": 0,
+      "fp": 2,
+      "tn": 43,
+      "fn": 3,
+      "precision": 0.0,
+      "recall": 0.0,
+      "false_positive_rate": 0.044,
+      "f1": 0.0,
+      "accuracy": 0.896
+    },
+    "harmfulness_proxy": {
+      "tp": 2,
+      "fp": 2,
+      "tn": 43,
+      "fn": 1,
+      "precision": 0.5,
+      "recall": 0.667,
+      "false_positive_rate": 0.044,
+      "f1": 0.572,
+      "accuracy": 0.938
+    },
+    "naive_text_proxy": {
+      "tp": 3,
+      "fp": 17,
+      "tn": 28,
+      "fn": 0,
+      "precision": 0.15,
+      "recall": 1.0,
+      "false_positive_rate": 0.378,
+      "f1": 0.261,
+      "accuracy": 0.646
+    },
+    "prompt_any_proxy": {
+      "tp": 3,
+      "fp": 21,
+      "tn": 24,
+      "fn": 0,
+      "precision": 0.125,
+      "recall": 1.0,
+      "false_positive_rate": 0.467,
+      "f1": 0.222,
+      "accuracy": 0.562
+    }
+  },
+  "paired_tests_vs_state_aware": {
+    "prompt_local_proxy": {
+      "discordant_a_only": 2,
+      "discordant_b_only": 20,
+      "exact_p_two_sided": 0.000121
+    },
+    "harmfulness_proxy": {
+      "discordant_a_only": 1,
+      "discordant_b_only": 21,
+      "exact_p_two_sided": 1.1e-05
+    },
+    "naive_text_proxy": {
+      "discordant_a_only": 10,
+      "discordant_b_only": 16,
+      "exact_p_two_sided": 0.32694
+    },
+    "prompt_any_proxy": {
+      "discordant_a_only": 11,
+      "discordant_b_only": 13,
+      "exact_p_two_sided": 0.83882
+    }
+  },
+  "author_external_agreement": {
+    "exact_3way": {
+      "k": 26,
+      "n": 48,
+      "rate": 0.542
+    },
+    "binary_clear_vs_non_clear": {
+      "k": 47,
+      "n": 48,
+      "rate": 0.979
+    }
+  }
+}

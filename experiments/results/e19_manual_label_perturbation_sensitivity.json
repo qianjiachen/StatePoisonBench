@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "experiment_id": "E19",
+    "name": "Manual-Label Perturbation Sensitivity (Cross-Provider API Subset)",
+    "generated_at_utc": "2026-04-12T09:00:37.817814+00:00",
+    "note": "Scenario-based perturbation on S16 pooled manual counts; used to stress-test low-count directional fragility."
+  },
+  "base_counts_from_s16": {
+    "vanilla": {
+      "k": 1,
+      "n": 152
+    },
+    "rtg": {
+      "k": 0,
+      "n": 152
+    }
+  },
+  "scenarios": [
+    {
+      "scenario": "observed",
+      "description": "Observed pooled manual counts from S16.",
+      "vanilla": {
+        "k": 1,
+        "n": 152,
+        "rate": 0.007
+      },
+      "rtg": {
+        "k": 0,
+        "n": 152,
+        "rate": 0.0
+      },
+      "delta_rtg_minus_vanilla": -0.007,
+      "direction_non_worsening": true,
+      "fisher_two_sided_p": 1.0
+    },
+    {
+      "scenario": "vanilla_downgrade_1",
+      "description": "Single-label stress: the only vanilla clear-positive is downgraded.",
+      "vanilla": {
+        "k": 0,
+        "n": 152,
+        "rate": 0.0
+      },
+      "rtg": {
+        "k": 0,
+        "n": 152,
+        "rate": 0.0
+      },
+      "delta_rtg_minus_vanilla": 0.0,
+      "direction_non_worsening": true,
+      "fisher_two_sided_p": 1.0
+    },
+    {
+      "scenario": "rtg_upgrade_1",
+      "description": "Single-label stress: one RTG ambiguous episode is upgraded to clear-positive.",
+      "vanilla": {
+        "k": 1,
+        "n": 152,
+        "rate": 0.007
+      },
+      "rtg": {
+        "k": 1,
+        "n": 152,
+        "rate": 0.007
+      },
+      "delta_rtg_minus_vanilla": 0.0,
+      "direction_non_worsening": true,
+      "fisher_two_sided_p": 1.0
+    },
+    {
+      "scenario": "swap_stress_2",
+      "description": "Two-label stress: vanilla downgrade plus RTG upgrade (direction-flip stress).",
+      "vanilla": {
+        "k": 0,
+        "n": 152,
+        "rate": 0.0
+      },
+      "rtg": {
+        "k": 1,
+        "n": 152,
+        "rate": 0.007
+      },
+      "delta_rtg_minus_vanilla": 0.007,
+      "direction_non_worsening": false,
+      "fisher_two_sided_p": 1.0
+    },
+    {
+      "scenario": "vanilla_plus2_stress",
+      "description": "Higher-prevalence stress: add two vanilla clear-positive episodes.",
+      "vanilla": {
+        "k": 3,
+        "n": 152,
+        "rate": 0.02
+      },
+      "rtg": {
+        "k": 0,
+        "n": 152,
+        "rate": 0.0
+      },
+      "delta_rtg_minus_vanilla": -0.02,
+      "direction_non_worsening": true,
+      "fisher_two_sided_p": 0.248
+    }
+  ],
+  "summary": {
+    "n_scenarios": 5,
+    "direction_non_worsening": {
+      "k": 4,
+      "n": 5,
+      "rate": 0.8
+    },
+    "delta_range_rtg_minus_vanilla": {
+      "min": -0.02,
+      "max": 0.007
+    },
+    "fisher_p_range": {
+      "min": 0.248,
+      "max": 1.0
+    }
+  }
+}

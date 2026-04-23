@@ -1,0 +1,67 @@
+\documentclass{article}
+
+\usepackage{neurips_2026}
+
+\PassOptionsToPackage{hyphens}{url}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\hypersetup{hidelinks,breaklinks=true}
+\usepackage{url}
+\usepackage{xurl}
+\urlstyle{same}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\newcommand{\draftcite}[1]{\textcolor{blue}{[cite: #1]}}
+% \newcommand{\figureplaceholder}[1]{\fbox{\parbox{0.95\linewidth}{\centering\textit{#1}}}}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\setlength{\emergencystretch}{1.5em}
+
+\title{StatePoisonBench: A Benchmark Methodology for Persistent State Contamination in Long-Horizon Agents}
+
+\author{Anonymous Authors}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+	Large language model agents increasingly operate in long-horizon settings that rely on persistent state artifacts such as summaries, trackers, recovery files, session continuations, and model-generated compacted context. These artifacts enable continuity, but they also create a write--recover--act safety surface that is only partially captured by prompt-injection benchmarks, short-context jailbreak settings, or generic agent suites \citep{greshake2023indirect,webarena2024,mind2web2023,agentboard2024}.
+
+	We present \textbf{StatePoisonBench}, a benchmark methodology for persistent-state contamination in tool-using agents. It combines controllable synthetic task families, a resume-sensitive trajectory schema, and a role-aware protocol for heterogeneous real traces. The main paper centers a two-family action-grounded nucleus inside a five-family core split that still tests methodology span. On the frozen synthetic core, trajectory-aware evaluation exposes benchmark-defined post-restore violations that prompt-local screeners miss, while cross-model and turn-scaling studies show the pattern is recurring rather than model-specific or purely one-shot. Real-trace studies are used to calibrate interpretation and protocol feasibility rather than to estimate prevalence or treatment effects. The resulting contribution is an auditable benchmark and interpretation framework for persistent-state contamination in long-horizon agents.
+\end{abstract}
+
+\input{sections/main_text}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\clearpage
+\appendix
+\raggedbottom
+\setlength{\textfloatsep}{10pt plus 2pt minus 2pt}
+\setlength{\floatsep}{8pt plus 2pt minus 2pt}
+\setlength{\intextsep}{8pt plus 2pt minus 2pt}
+
+\input{sections/appendix_benchmark}
+\input{sections/appendix_validation}
+\input{sections/appendix_backmatter}
+\input{sections/checklist}
+
+\end{document}

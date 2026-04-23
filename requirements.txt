@@ -1,0 +1,6 @@
+numpy
+scipy
+
+# Optional for local open-weight and observability-ladder scripts:
+# torch
+# transformers

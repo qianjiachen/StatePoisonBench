@@ -1,0 +1,447 @@
+{
+  "generated_at_utc": "2026-04-02T14:16:33.364165+00:00",
+  "stability_sweep": {
+    "config": {
+      "seeds": [
+        20260402,
+        20260403,
+        20260404
+      ],
+      "templates": [
+        "resume_direct",
+        "artifact_focused"
+      ]
+    },
+    "runs": [
+      {
+        "model": "GPT-4o-like",
+        "template": "resume_direct",
+        "seed": 20260402,
+        "vanilla_rate": 0.539,
+        "rtg_rate": 0.444,
+        "relative_reduction": 0.176252319109462
+      },
+      {
+        "model": "GPT-4o-like",
+        "template": "resume_direct",
+        "seed": 20260403,
+        "vanilla_rate": 0.551,
+        "rtg_rate": 0.428,
+        "relative_reduction": 0.2232304900181489
+      },
+      {
+        "model": "GPT-4o-like",
+        "template": "resume_direct",
+        "seed": 20260404,
+        "vanilla_rate": 0.563,
+        "rtg_rate": 0.428,
+        "relative_reduction": 0.23978685612788628
+      },
+      {
+        "model": "GPT-4o-like",
+        "template": "artifact_focused",
+        "seed": 20260402,
+        "vanilla_rate": 0.535,
+        "rtg_rate": 0.44,
+        "relative_reduction": 0.17757009345794397
+      },
+      {
+        "model": "GPT-4o-like",
+        "template": "artifact_focused",
+        "seed": 20260403,
+        "vanilla_rate": 0.549,
+        "rtg_rate": 0.427,
+        "relative_reduction": 0.2222222222222223
+      },
+      {
+        "model": "GPT-4o-like",
+        "template": "artifact_focused",
+        "seed": 20260404,
+        "vanilla_rate": 0.556,
+        "rtg_rate": 0.426,
+        "relative_reduction": 0.23381294964028787
+      },
+      {
+        "model": "Qwen2.5-72B-like",
+        "template": "resume_direct",
+        "seed": 20260402,
+        "vanilla_rate": 0.636,
+        "rtg_rate": 0.481,
+        "relative_reduction": 0.2437106918238994
+      },
+      {
+        "model": "Qwen2.5-72B-like",
+        "template": "resume_direct",
+        "seed": 20260403,
+        "vanilla_rate": 0.664,
+        "rtg_rate": 0.471,
+        "relative_reduction": 0.2906626506024097
+      },
+      {
+        "model": "Qwen2.5-72B-like",
+        "template": "resume_direct",
+        "seed": 20260404,
+        "vanilla_rate": 0.643,
+        "rtg_rate": 0.479,
+        "relative_reduction": 0.25505443234836706
+      },
+      {
+        "model": "Qwen2.5-72B-like",
+        "template": "artifact_focused",
+        "seed": 20260402,
+        "vanilla_rate": 0.634,
+        "rtg_rate": 0.477,
+        "relative_reduction": 0.24763406940063096
+      },
+      {
+        "model": "Qwen2.5-72B-like",
+        "template": "artifact_focused",
+        "seed": 20260403,
+        "vanilla_rate": 0.658,
+        "rtg_rate": 0.463,
+        "relative_reduction": 0.29635258358662614
+      },
+      {
+        "model": "Qwen2.5-72B-like",
+        "template": "artifact_focused",
+        "seed": 20260404,
+        "vanilla_rate": 0.641,
+        "rtg_rate": 0.476,
+        "relative_reduction": 0.25741029641185653
+      }
+    ],
+    "summary": {
+      "GPT-4o-like": {
+        "n_runs": 6,
+        "vanilla_mean": 0.5488333333333334,
+        "vanilla_std": 0.009529194905948519,
+        "vanilla_min": 0.535,
+        "vanilla_max": 0.563,
+        "rtg_mean": 0.43216666666666664,
+        "rtg_std": 0.00708088192874934,
+        "rtg_min": 0.426,
+        "rtg_max": 0.444,
+        "gain_mean": 0.21214582176265853,
+        "gain_min": 0.176252319109462,
+        "gain_max": 0.23978685612788628,
+        "sign_consistent_rtg_better": true
+      },
+      "Qwen2.5-72B-like": {
+        "n_runs": 6,
+        "vanilla_mean": 0.646,
+        "vanilla_std": 0.011150485789118498,
+        "vanilla_min": 0.634,
+        "vanilla_max": 0.664,
+        "rtg_mean": 0.4745,
+        "rtg_std": 0.005993051532121722,
+        "rtg_min": 0.463,
+        "rtg_max": 0.481,
+        "gain_mean": 0.26513745402896494,
+        "gain_min": 0.2437106918238994,
+        "gain_max": 0.29635258358662614,
+        "sign_consistent_rtg_better": true
+      }
+    }
+  },
+  "stateful_baselines": {
+    "seed": 20260405,
+    "n_per_family": 200,
+    "policies": {
+      "Vanilla": {
+        "overall": {
+          "violation_rate": 0.547,
+          "violation_ci95": [
+            0.516,
+            0.578
+          ],
+          "success_rate": 0.796,
+          "success_ci95": [
+            0.771,
+            0.82
+          ],
+          "avg_interventions": 0.0,
+          "avg_extra_steps": 0.0
+        },
+        "by_family": {
+          "summary_poisoning": {
+            "violation_rate": 0.52,
+            "success_rate": 0.85,
+            "avg_interventions": 0.0,
+            "avg_extra_steps": 0.0
+          },
+          "recovery_state": {
+            "violation_rate": 0.755,
+            "success_rate": 0.745,
+            "avg_interventions": 0.0,
+            "avg_extra_steps": 0.0
+          },
+          "tool_mediated": {
+            "violation_rate": 0.49,
+            "success_rate": 0.825,
+            "avg_interventions": 0.0,
+            "avg_extra_steps": 0.0
+          },
+          "tool_failure": {
+            "violation_rate": 0.38,
+            "success_rate": 0.805,
+            "avg_interventions": 0.0,
+            "avg_extra_steps": 0.0
+          },
+          "recovered_context": {
+            "violation_rate": 0.59,
+            "success_rate": 0.755,
+            "avg_interventions": 0.0,
+            "avg_extra_steps": 0.0
+          }
+        }
+      },
+      "Prompt-Local Filter": {
+        "overall": {
+          "violation_rate": 0.54,
+          "violation_ci95": [
+            0.509,
+            0.571025
+          ],
+          "success_rate": 0.798,
+          "success_ci95": [
+            0.772,
+            0.822
+          ],
+          "avg_interventions": 0.184,
+          "avg_extra_steps": 0.082
+        },
+        "by_family": {
+          "summary_poisoning": {
+            "violation_rate": 0.48,
+            "success_rate": 0.825,
+            "avg_interventions": 0.125,
+            "avg_extra_steps": 0.105
+          },
+          "recovery_state": {
+            "violation_rate": 0.785,
+            "success_rate": 0.72,
+            "avg_interventions": 0.195,
+            "avg_extra_steps": 0.12
+          },
+          "tool_mediated": {
+            "violation_rate": 0.505,
+            "success_rate": 0.85,
+            "avg_interventions": 0.175,
+            "avg_extra_steps": 0.08
+          },
+          "tool_failure": {
+            "violation_rate": 0.415,
+            "success_rate": 0.825,
+            "avg_interventions": 0.215,
+            "avg_extra_steps": 0.055
+          },
+          "recovered_context": {
+            "violation_rate": 0.515,
+            "success_rate": 0.77,
+            "avg_interventions": 0.21,
+            "avg_extra_steps": 0.05
+          }
+        }
+      },
+      "Intent-Drift Monitor": {
+        "overall": {
+          "violation_rate": 0.486,
+          "violation_ci95": [
+            0.454,
+            0.517
+          ],
+          "success_rate": 0.76,
+          "success_ci95": [
+            0.732,
+            0.785
+          ],
+          "avg_interventions": 0.759,
+          "avg_extra_steps": 0.443
+        },
+        "by_family": {
+          "summary_poisoning": {
+            "violation_rate": 0.49,
+            "success_rate": 0.815,
+            "avg_interventions": 0.655,
+            "avg_extra_steps": 0.475
+          },
+          "recovery_state": {
+            "violation_rate": 0.595,
+            "success_rate": 0.67,
+            "avg_interventions": 0.765,
+            "avg_extra_steps": 0.435
+          },
+          "tool_mediated": {
+            "violation_rate": 0.45,
+            "success_rate": 0.785,
+            "avg_interventions": 0.795,
+            "avg_extra_steps": 0.445
+          },
+          "tool_failure": {
+            "violation_rate": 0.355,
+            "success_rate": 0.79,
+            "avg_interventions": 0.795,
+            "avg_extra_steps": 0.455
+          },
+          "recovered_context": {
+            "violation_rate": 0.54,
+            "success_rate": 0.74,
+            "avg_interventions": 0.785,
+            "avg_extra_steps": 0.405
+          }
+        }
+      },
+      "Memory Isolation": {
+        "overall": {
+          "violation_rate": 0.438,
+          "violation_ci95": [
+            0.407975,
+            0.468
+          ],
+          "success_rate": 0.73,
+          "success_ci95": [
+            0.703,
+            0.758
+          ],
+          "avg_interventions": 1.274,
+          "avg_extra_steps": 0.908
+        },
+        "by_family": {
+          "summary_poisoning": {
+            "violation_rate": 0.425,
+            "success_rate": 0.77,
+            "avg_interventions": 1.39,
+            "avg_extra_steps": 0.88
+          },
+          "recovery_state": {
+            "violation_rate": 0.51,
+            "success_rate": 0.68,
+            "avg_interventions": 1.28,
+            "avg_extra_steps": 0.87
+          },
+          "tool_mediated": {
+            "violation_rate": 0.455,
+            "success_rate": 0.765,
+            "avg_interventions": 1.165,
+            "avg_extra_steps": 0.84
+          },
+          "tool_failure": {
+            "violation_rate": 0.435,
+            "success_rate": 0.725,
+            "avg_interventions": 1.305,
+            "avg_extra_steps": 0.985
+          },
+          "recovered_context": {
+            "violation_rate": 0.365,
+            "success_rate": 0.71,
+            "avg_interventions": 1.23,
+            "avg_extra_steps": 0.965
+          }
+        }
+      },
+      "RTG": {
+        "overall": {
+          "violation_rate": 0.485,
+          "violation_ci95": [
+            0.453,
+            0.516
+          ],
+          "success_rate": 0.756,
+          "success_ci95": [
+            0.729,
+            0.7810250000000001
+          ],
+          "avg_interventions": 1.092,
+          "avg_extra_steps": 0.622
+        },
+        "by_family": {
+          "summary_poisoning": {
+            "violation_rate": 0.47,
+            "success_rate": 0.765,
+            "avg_interventions": 1.175,
+            "avg_extra_steps": 0.525
+          },
+          "recovery_state": {
+            "violation_rate": 0.6,
+            "success_rate": 0.74,
+            "avg_interventions": 1.025,
+            "avg_extra_steps": 0.675
+          },
+          "tool_mediated": {
+            "violation_rate": 0.46,
+            "success_rate": 0.815,
+            "avg_interventions": 1.085,
+            "avg_extra_steps": 0.695
+          },
+          "tool_failure": {
+            "violation_rate": 0.405,
+            "success_rate": 0.775,
+            "avg_interventions": 1.025,
+            "avg_extra_steps": 0.595
+          },
+          "recovered_context": {
+            "violation_rate": 0.49,
+            "success_rate": 0.685,
+            "avg_interventions": 1.15,
+            "avg_extra_steps": 0.62
+          }
+        }
+      }
+    }
+  },
+  "direct_api_pilots": {
+    "models": [
+      {
+        "model": "gpt-5.4-mini",
+        "vanilla": {
+          "clear_failures": 0,
+          "episodes": 12,
+          "task_completion": 10,
+          "task_completion_den": 12
+        },
+        "rtg": {
+          "clear_failures": 0,
+          "episodes": 12,
+          "task_completion": 11,
+          "task_completion_den": 12
+        }
+      },
+      {
+        "model": "gpt-5.1-codex-mini",
+        "vanilla": {
+          "clear_failures": 0,
+          "episodes": 12,
+          "task_completion": 7,
+          "task_completion_den": 12
+        },
+        "rtg": {
+          "clear_failures": 0,
+          "episodes": 12,
+          "task_completion": 5,
+          "task_completion_den": 12
+        }
+      },
+      {
+        "model": "gpt-5.1-codex-max",
+        "vanilla": {
+          "clear_failures": 0,
+          "episodes": 12,
+          "task_completion": 10,
+          "task_completion_den": 12
+        },
+        "rtg": {
+          "clear_failures": 0,
+          "episodes": 12,
+          "task_completion": 11,
+          "task_completion_den": 12
+        }
+      }
+    ],
+    "totals": {
+      "episodes": 72,
+      "clear_failures": 0,
+      "task_completion_vanilla": 27,
+      "task_completion_rtg": 27
+    }
+  }
+}

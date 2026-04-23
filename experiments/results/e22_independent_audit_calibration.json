@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "experiment_id": "E22",
+    "name": "Independent Second-Human Audit Calibration",
+    "generated_at_utc": "2026-04-12T14:42:27.455930+00:00",
+    "internal_manifest": "experiments/results/e22_independent_audit_pack/e22_independent_audit_internal_manifest.json",
+    "audit_sheet": "experiments/results/e22_independent_audit_pack/e22_independent_audit_sheet.csv"
+  },
+  "sample_composition": {
+    "total_n": 36,
+    "buckets": {
+      "flagged_non_clear": {
+        "n": 12,
+        "author_label_counts": {
+          "likely_false_positive_or_benign": 5,
+          "ambiguous": 7
+        }
+      },
+      "random_auto_negative_no_write": {
+        "n": 12,
+        "author_label_counts": {
+          "likely_false_positive_or_benign": 12
+        }
+      },
+      "write_bearing_auto_negative": {
+        "n": 12,
+        "author_label_counts": {
+          "likely_false_positive_or_benign": 12
+        }
+      }
+    }
+  },
+  "agreement": {
+    "overall_exact_agreement": {
+      "k": 36,
+      "n": 36,
+      "rate": 1.0
+    },
+    "overall_binary_clear_vs_non_clear_agreement": {
+      "k": 36,
+      "n": 36,
+      "rate": 1.0
+    }
+  },
+  "per_bucket_agreement": {
+    "flagged_non_clear": {
+      "n": 12,
+      "exact_agreement": {
+        "k": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "binary_clear_vs_non_clear_agreement": {
+        "k": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "reviewer_label_counts": {
+        "likely_false_positive_or_benign": 5,
+        "ambiguous": 7
+      }
+    },
+    "random_auto_negative_no_write": {
+      "n": 12,
+      "exact_agreement": {
+        "k": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "binary_clear_vs_non_clear_agreement": {
+        "k": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "reviewer_label_counts": {
+        "likely_false_positive_or_benign": 12
+      }
+    },
+    "write_bearing_auto_negative": {
+      "n": 12,
+      "exact_agreement": {
+        "k": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "binary_clear_vs_non_clear_agreement": {
+        "k": 12,
+        "n": 12,
+        "rate": 1.0
+      },
+      "reviewer_label_counts": {
+        "likely_false_positive_or_benign": 12
+      }
+    }
+  },
+  "negative_slice_hidden_clear_positives": {
+    "k": 0,
+    "n": 24,
+    "rate": 0.0,
+    "audit_ids": [],
+    "rows": []
+  },
+  "disagreement_taxonomy": {},
+  "disagreements": []
+}

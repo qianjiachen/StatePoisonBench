@@ -1,0 +1,10 @@
+$out_dir = "_build";
+$aux_dir = "_build";
+$pdf_mode = 1;
+$bibtex_use = 1;
+
+use File::Copy;
+if (-e "references.bib") {
+  mkdir "_build" unless -d "_build";
+  copy("references.bib", "_build/references.bib");
+}

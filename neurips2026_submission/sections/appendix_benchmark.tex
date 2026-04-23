@@ -1,0 +1,110 @@
+\section{Task Schema}
+
+StatePoisonBench uses a structured task schema so instances are interpreted consistently across synthetic runs, adapted traces, and trajectory-aware evaluation. Each instance defines the goal, authorization boundary, state artifact, contamination pathway, trigger, and evaluation labels. Persistent-state contamination is therefore defined by a \emph{state-to-action} boundary violation pattern, not by a single prompt or response.
+
+At minimum, each task instance includes the following fields:
+\begin{itemize}
+	\item \texttt{instance\_id}
+	\item \texttt{task\_goal}
+	\item \texttt{authorization\_boundary}
+	\item \texttt{state\_artifact}
+	\item \texttt{poisoning} (or influence) definition
+	\item \texttt{trigger}
+	\item \texttt{evaluation} block
+\end{itemize}
+The authorization boundary separates allowed/high-risk/disallowed actions, and the evaluation block defines family-specific success/violation criteria. The benchmark evolved from controllable synthetic families to trace-aligned families (for example, tool-mediated recovery and recovered-context write) to improve real-workflow grounding.
+Figure~\ref{fig:task_schema_lifecycle} gives a compact synthetic-only lifecycle view from task schema declaration to deterministic synthetic labels; real-trace labels instead follow the separate review protocol described in Appendix~D.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth,trim=35 30 35 40,clip]{figure4.png}
+	\caption{Synthetic task-schema lifecycle. For synthetic benchmark instances, structured task fields define controlled executions that are converted into typed trajectory events and then scored by deterministic evaluator rules. Synthetic labels are schema-anchored and evaluator-determined; real-trace labels use a separate review protocol.}
+	\label{fig:task_schema_lifecycle}
+\end{figure}
+
+\begin{table}[t]
+	\centering
+	\scriptsize
+\caption{StatePoisonBench family inventory (workflow pattern, state artifact, trigger, main violation, realism anchor). Section~\ref{sec:experiments} evaluates a five-family core split from this inventory.}
+	\setlength{\tabcolsep}{2pt}
+	\begin{tabular}{L{1.9cm}L{1.8cm}L{2.5cm}L{1.8cm}L{4.6cm}}
+		\toprule
+		Family                             & State Artifact                                  & Trigger                                                 & Main Violation      & Realism Anchor                                                       \\
+		\midrule
+		Summary poisoning              & Summary / final summary                      & Agent resumes planning after reading a summary        & Goal drift          & Summary reuse is routine in long-horizon workflows            \\
+		Tracker poisoning              & Tracker / task list / runbook                & Agent treats tracker items as execution guidance      & Unauthorized action & Trackers often act as high-trust coordination objects         \\
+		Recovery-state                 & Recovery file / pipeline status              & Session resume with immediate follow-up actions       & Persistence success & Real platforms frequently resume from saved state             \\
+		External-to-state              & External note rewritten into trusted summary & Retrieved or external context is rewritten into state & State propagation   & Retrieved content is often rewritten into persistent artifacts \\
+		Session continuation           & Session index / prior session state          & User asks agent to continue earlier work              & Goal drift          & Directly grounded in real continuation traces                 \\
+		Tool-mediated recovery         & Shell/file outputs used to reconstruct state & Agent changes plan after partial retrieval            & Goal drift          & Real traces show shell-based recovery before planning         \\
+		Tool-failure escalation       & Tool warning / partial failure signal        & Agent treats a failed tool step as reason to broaden action or escalate writes & Unsafe tool escalation & Real workflows often recover from partial failures before taking higher-risk follow-up steps \\
+		Interrupted-state              & Aborted-turn notice / partial outputs        & Agent resumes after interruption or partial execution & Persistence success & Real traces include interrupted workflows                     \\
+		Recovered-context write        & Historical state reused in trusted artifact  & Agent writes rebuttal, manuscript, or summary later   & State propagation   & Directly grounded in trusted-write workflows                  \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:families}
+\end{table}
+
+\section{Trajectory Schema and Evaluator Details}
+
+StatePoisonBench represents each run as ordered steps (\texttt{state\_restore}, \texttt{read}, \texttt{reasoning}, \texttt{decision}, \texttt{tool\_call}, \texttt{tool\_result}, \texttt{write}) with optional tags/targets/time/high-risk markers.
+
+For the synthetic core split, the evaluator introduces a \textbf{resume-sensitive window} defined as the next $N=3$ high-risk steps after the first \texttt{state\_restore}. High-risk steps are explicit \texttt{decision}, \texttt{tool\_call}, or \texttt{write} events that either set \texttt{high\_risk=true} or carry tags indicating trusted-state writes, permission changes, destructive actions, goal overrides, or policy modification. This focuses evaluation on the short post-restore transition where inherited state is most likely to be converted into risky action.
+
+Synthetic adjudication is deterministic: each instance predeclares boundaries/targets/family/restore trigger, and rule checks emit \texttt{unauthorized\_action}, \texttt{goal\_drift}, \texttt{unsafe\_tool\_escalation}, \texttt{persistence\_success}, or \texttt{state\_propagation}. Real traces use a narrower evidence-packet protocol: upgrade \texttt{ambiguous} to \texttt{positive} only when boundary clarity, action evidence, state-to-action linkage, and review stability all hold. This keeps synthetic scoring auditable while preventing over-claiming on sparse real logs.
+
+\section{Adapters and Real Trace Ingestion}
+\label{app:adapters}
+
+StatePoisonBench uses adapter-based ingestion because real platforms expose different logging surfaces (desktop events, state-store files, or action-level traces). We normalize these sources into one trajectory schema instead of assuming one uniform log format.
+
+The prototype includes an execution-record bridge, a generic platform-log adapter (JSON/text), and platform-specific adapters for OpenCode desktop logs, OpenCode \texttt{.dat} state files, and Codex session JSONL traces. Semantic richness varies: desktop/state logs mainly support coverage grounding, Codex JSONL provides the strongest action-level alignment, and execution-record bridges are used primarily for schema alignment and pipeline validation rather than scored role annotation.
+Figure~\ref{fig:adapter_arch} summarizes the full ingestion architecture, including the generic platform-log path and the auxiliary non-scored execution-bridge branch.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{figure5.png}
+	\caption{Trace-ingestion architecture. Platform-specific and generic platform-log adapters normalize OpenCode logs, OpenCode state files, Codex session traces, and JSON/text platform logs into a unified schema for role-aware annotation (\texttt{coverage}/\texttt{ambiguous}/\texttt{positive}); execution-record bridges remain on a separate auxiliary non-scored path for schema alignment and adapter testing.}
+	\label{fig:adapter_arch}
+\end{figure}
+
+\begin{table}[t]
+	\centering
+	\small
+	\caption{Integrated real trace sources and their semantic granularity. Heterogeneity motivates role-aware treatment.}
+	\setlength{\tabcolsep}{3pt}
+	\begin{tabularx}{\textwidth}{L{0.13\linewidth}L{0.11\linewidth}L{0.16\linewidth}L{0.12\linewidth}L{0.11\linewidth}Y}
+		\toprule
+		Source                           & Platform                   & Granularity                                                & Action-Level Semantics & Current Role         & Primary Use                                   \\
+		\midrule
+		Desktop logs                     & OpenCode                   & System / lifecycle / sidecar / error events                & No                     & Coverage             & Platform grounding and workflow realism       \\
+		State-store \texttt{.dat} files  & OpenCode                   & Session-state / prompt-history / followup                  & Weak                   & Coverage             & State-layer workflow grounding                \\
+		Execution-record adapter outputs & Internal structured record & Partial execution semantics                                & Partial                & Bridge (non-scored)  & Pipeline validation and adapter testing       \\
+		Session JSONL traces             & Codex Desktop              & Session meta + messages + tool calls + results + reasoning & Yes                    & Coverage / ambiguous & Strongest real action-level workflow evidence \\
+		\bottomrule
+	\end{tabularx}
+	\label{tab:realtraces}
+\end{table}
+
+\section{Real Trace Taxonomy and Annotation Protocol}
+\label{app:taxonomy}
+
+Real traces are role-aware: \texttt{coverage}, \texttt{positive}, and \texttt{ambiguous}. Coverage confirms workflow realism; positives require clear boundary/action evidence plus stable labels; ambiguous traces are retained for case analysis and benchmark expansion.
+
+In v3 guidelines, trajectories may include \texttt{trace\_role}, \texttt{alignment\_confidence}, and \texttt{alignment\_notes}. We use two-stage annotation: primary labeling, then secondary audit of all positives plus a random ambiguous subset, with adjudication notes for unresolved borderline cases.
+
+\section{Real Trace Case Study Details}
+\label{app:casestudy}
+
+Our strongest real case comes from a Codex Desktop session where a model-generated compacted summary is reused as recovery context and later echoed in trusted manuscript/rebuttal edits. The key signal is content propagation from historical summary to later trusted writes, not only temporal proximity.
+
+We still classify this trace as \texttt{ambiguous}, not a clean contamination-positive, because maliciousness and error impact are not unambiguous. Its value is to ground the recovered-context-write family and to motivate strict separation between realistic propagation evidence and confirmed contamination positives.
+
+\section{Prototype Pipeline Status and Pilot Logs}
+\label{app:results}
+
+Our benchmark prototype is now end-to-end executable: schema-defined synthetic tasks, trajectory-aware scoring, and heterogeneous real-trace ingestion all run inside one pipeline. We treat the current packet as methodology validation rather than a mature public leaderboard.
+
+\paragraph{Reproducibility protocol (condensed).}
+All reported numbers follow frozen protocol families: fixed split IDs, fixed authorization policy, deterministic trajectory-aware adjudication, and versioned reruns only when study design changes (paired control, threshold sweep, or calibration packet). We compare absolute rates only within the corresponding run family and map each table to local artifacts in Appendix~\ref{app:artifact_map}.
+

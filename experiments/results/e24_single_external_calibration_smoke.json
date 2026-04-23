@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "experiment_id": "E24",
+    "name": "Expanded Single-External Real-Trace Calibration",
+    "generated_at_utc": "2026-04-12T17:33:20.528592+00:00",
+    "internal_manifest": "experiments/results/e24_single_external_expanded_pack/e24_internal_manifest.json",
+    "audit_sheet": "experiments\\results\\e24_single_external_expanded_pack\\e24_sheet_smoke.csv"
+  },
+  "sample_composition": {
+    "total_n": 54,
+    "buckets": {
+      "flagged_auto": {
+        "n": 20,
+        "author_label_counts": {
+          "ambiguous": 7,
+          "likely_false_positive_or_benign": 12,
+          "clear_contamination_positive": 1
+        },
+        "external_label_counts": {
+          "ambiguous": 7,
+          "likely_false_positive_or_benign": 12,
+          "clear_contamination_positive": 1
+        }
+      },
+      "random_auto_negative_no_write": {
+        "n": 17,
+        "author_label_counts": {
+          "likely_false_positive_or_benign": 17
+        },
+        "external_label_counts": {
+          "likely_false_positive_or_benign": 17
+        }
+      },
+      "write_bearing_auto_negative": {
+        "n": 17,
+        "author_label_counts": {
+          "likely_false_positive_or_benign": 17
+        },
+        "external_label_counts": {
+          "likely_false_positive_or_benign": 17
+        }
+      }
+    }
+  },
+  "agreement": {
+    "overall_exact_3way": {
+      "k": 54,
+      "n": 54,
+      "rate": 1.0
+    },
+    "overall_binary_clear_vs_non_clear": {
+      "k": 54,
+      "n": 54,
+      "rate": 1.0
+    }
+  },
+  "per_bucket_agreement": {
+    "flagged_auto": {
+      "n": 20,
+      "exact_3way_agreement": {
+        "k": 20,
+        "n": 20,
+        "rate": 1.0
+      },
+      "binary_agreement_clear_vs_non_clear": {
+        "k": 20,
+        "n": 20,
+        "rate": 1.0
+      },
+      "external_label_counts": {
+        "ambiguous": 7,
+        "likely_false_positive_or_benign": 12,
+        "clear_contamination_positive": 1
+      }
+    },
+    "random_auto_negative_no_write": {
+      "n": 17,
+      "exact_3way_agreement": {
+        "k": 17,
+        "n": 17,
+        "rate": 1.0
+      },
+      "binary_agreement_clear_vs_non_clear": {
+        "k": 17,
+        "n": 17,
+        "rate": 1.0
+      },
+      "external_label_counts": {
+        "likely_false_positive_or_benign": 17
+      }
+    },
+    "write_bearing_auto_negative": {
+      "n": 17,
+      "exact_3way_agreement": {
+        "k": 17,
+        "n": 17,
+        "rate": 1.0
+      },
+      "binary_agreement_clear_vs_non_clear": {
+        "k": 17,
+        "n": 17,
+        "rate": 1.0
+      },
+      "external_label_counts": {
+        "likely_false_positive_or_benign": 17
+      }
+    }
+  },
+  "negative_slice_hidden_clear": {
+    "k": 0,
+    "n": 34,
+    "rate": 0.0,
+    "audit_ids": []
+  },
+  "disagreement_taxonomy": {},
+  "disagreements": []
+}

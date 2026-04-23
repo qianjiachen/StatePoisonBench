@@ -1,0 +1,258 @@
+\section{Introduction}
+
+Large language model agents are increasingly deployed in long-horizon workflows that depend on persistent state. In practice, these agents do not solve tasks from scratch at every turn. They recover prior summaries, read session continuations, inspect trackers, reuse historical outputs, and rely on model-generated compacted context to avoid duplicating work. This persistent state makes long-horizon agents more capable, but it also creates a safety surface that is only partially captured by existing prompt-injection benchmarks, short-context jailbreak evaluations, or generic task-completion suites \citep{greshake2023indirect,agentbench2023,webarena2024,osworld2024,workarena2024,browsergym2024,mind2web2023,weblinx2024}.
+
+The core issue is not same-turn prompt injection, but whether state written or inherited in one phase can be recovered later and steer authorization-sensitive actions. In realistic workflows, summaries, recovery files, session indices, and model-generated historical context can act as delayed control channels: the risky signal is written into workflow artifacts, reread during recovery, and expressed only later in tool use or trusted document updates. Existing prompt-injection studies and broad agent suites capture pieces of this pipeline, but they do not isolate post-restore write--recover--act transitions as the primary unit of analysis.
+
+We introduce \textbf{StatePoisonBench}, a benchmark methodology for persistent-state contamination in tool-using agents. It combines controllable synthetic task families, trajectory-aware evaluation, and a role-aware real-grounding protocol that separates retrospective calibration from prospective paired probing.
+
+Within that bounded scope, the paper makes three contributions. First, it formulates persistent-state contamination as a write--recover--act safety surface distinct from same-turn prompt injection, and evaluates it primarily through a two-family action-grounded nucleus (\texttt{tool\_mediated\_recovery}, \texttt{recovered\_context\_write}) embedded in a broader five-family span test. Second, it introduces a unified benchmark/evaluator stack for synthetic and real-trace inputs, and frames C1 as a benchmark-internal observability-gap result under one frozen synthetic label set rather than as a universal detector ranking. Third, it presents an auditable evidence ladder in which real traces calibrate over-flagging, hidden-miss risk, and protocol feasibility rather than estimating prevalence or treatment effects.
+
+\section{Related Work}
+
+\paragraph{Prompt injection and external-content attacks.} Prompt-injection and indirect prompt-injection studies show that retrieved or externally supplied content can steer model behavior \citep{greshake2023indirect,perez2022ignore,chao2023jailbreaking,yi2025bipia,agentdojo2024,toolemu2023,injecagent2024,instructionhierarchy2024,wang2024safeguard}. A complementary line asks whether models can cleanly separate instructions from data at all \citep{zverev2025separation}, which helps motivate our emphasis on explicit boundary metadata rather than prompt-local heuristics alone. These settings are the closest precursor to our threat model, but they mostly emphasize immediate hostile content in the current interaction. StatePoisonBench instead focuses on what happens after suspicious content has already been written into persistent workflow artifacts and later re-enters the control loop through recovery or continuation.
+
+\paragraph{Long-horizon agent benchmarks.} Broad agent benchmarks extend evaluation to web, desktop, software-engineering, and general tool-using environments \citep{agentbench2023,webarena2024,osworld2024,workarena2024,browsergym2024,toolsandbox2024,taubench2024,swebench2023,gaia2023,mcpsafetybench2025,mind2web2023,weblinx2024,webshop2022,scienceworld2022,alfworld2020,agentboard2024,zhang2025asb}. They establish that realistic agent behavior is multi-step, tool-mediated, and often safety-relevant, but they do not center post-restore authorization-sensitive state transitions as the primary measurement unit. Our benchmark is therefore narrower in scope but sharper in semantics: it centers authorization-sensitive behavior after state restoration rather than overall task success or generic lifecycle robustness.
+
+\paragraph{Persistent memory, runtime safeguards, and adjacent stateful threat models.} Recent work studies persistent memory abstractions, runtime verifiers, context purification, intent-drift monitoring, and deployable policy-enforcing runtimes \citep{yao2023react,generativeagents2023,voyager2023,reflexion2023,memorybank2023,memgpt2023,cma2026,memweaver2026,siu2026framework,zhang2026agentsentry,wang2026icon,deepcontext2026,agentsys2026,zhang2026verigrey,parallax2026,openclawprism2026}. Adjacent persistent-state papers and benchmarks such as Zombie Agents, Spider-Sense/S$^2$Bench, and No Attacker Needed further show that failures can survive beyond a single prompt or user \citep{yang2026zombie,yu2026spidersense,yang2026noattacker}. These settings are complementary to ours: they motivate temporal trust management and broader lifecycle screening, whereas StatePoisonBench isolates authorization-sensitive post-restore write--recover--act transitions under one auditable measurement interface.
+
+\section{Problem Setting}
+
+We study long-horizon agents that operate through persistent state. Unlike one-shot chat models, these agents routinely recover prior context, consult intermediate notes, continue earlier sessions, inspect summaries, and update trusted project artifacts across multiple turns. In such systems, the relevant safety question is not only whether the current visible input is adversarial, but whether state inherited from prior interactions can continue to shape later behavior.
+
+We use the term \textbf{persistent state artifact} to refer to any object that both stores information across steps or sessions and can later influence the agent's decisions. Examples include summaries, trackers, recovery notes, session indices, prompt histories, model-generated compacted context, and intermediate trusted documents that are later reread. We define \textbf{persistent state contamination} as the phenomenon in which inherited or recovered state contributes to later behavior in a way that is unsafe, misleading, or insufficiently authorized \citep{yang2026zombie,siu2026framework}.
+
+A central part of our setting is the notion of an \textbf{authorization boundary}. Benchmark instances specify not only a task goal but also which actions are allowed, which are high-risk, and which are disallowed without explicit confirmation. This allows us to separate ordinary task execution from state-driven violations such as goal drift, unauthorized continuation, or unsafe propagation into trusted documents.
+
+For compact formalization in the main text, we represent each instance boundary as $\mathcal{B}=(A_{\text{allow}},A_{\text{confirm}},A_{\text{block}},T_{\text{trusted}})$: always-allowed actions, explicit-confirmation-required actions, disallowed actions, and trusted targets. A \textbf{trusted write} is any \texttt{write} whose target is in $T_{\text{trusted}}$. A \textbf{resume-sensitive window} (defined operationally in Section~5) is the first $N$ post-\texttt{state\_restore} high-risk steps used for bounded attribution.
+
+StatePoisonBench tracks five violation labels: \texttt{unauthorized\_action}, \texttt{goal\_drift}, \texttt{unsafe\_tool\_escalation}, \texttt{persistence\_success}, and \texttt{state\_propagation}. These labels are intentionally separated because long-horizon stateful failures often unfold gradually and need not manifest as a single overtly dangerous action. Figure~\ref{fig:pipeline} illustrates the workflow surface that StatePoisonBench targets: state artifacts are inherited through recovery or continuation, shape downstream decisions and tool use, and may later branch into trusted writes, authorization-sensitive actions, or both.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{figure1.png}
+	\caption{Persistent state contamination pipeline in long-horizon agents. State artifacts such as summaries, trackers, recovery notes, historical session outputs, and model-generated compacted context are inherited across turns or sessions. Once recovered, they influence downstream planning and tool use, and may later branch into trusted writes, authorization-sensitive actions, or both. StatePoisonBench targets this transition from recovered state to later behavior, rather than only the initial contamination source.}
+	\label{fig:pipeline}
+\end{figure}
+
+Full task-schema details and representative JSONL examples are provided in Appendix~A.
+
+\section{Benchmark Design}
+
+StatePoisonBench targets a specific failure surface in long-horizon tool-using agents: persistent state artifacts that influence later decisions, tool use, or trusted writes in ways not captured by ordinary task-success metrics. Each instance specifies a task goal, authorization boundary, state artifact, contamination pathway, expected sensitive window, and one or more violation labels. The full family inventory is listed in Appendix~A; the main paper evaluates a five-family \emph{core split} chosen for clean authorization boundaries, action-level trajectories, and direct compatibility with the shared evaluator used in Section~\ref{sec:experiments}. This distinction between \emph{families} and \emph{violation labels} matters because multiple workflow families can map to the same violation type (for example, summary poisoning and tool-mediated recovery are both primarily evaluated as goal drift).
+
+\paragraph{Minimal rule example (main-text).} Consider a recovered-context-write instance where the task goal is to continue implementation notes, while \texttt{rebuttal.md} is in $T_{\text{trusted}}$ and requires explicit confirmation before edits. The contaminated variant injects a small recovered-state instruction bias (``if blocked, directly patch rebuttal''); the clean paired control keeps the same goal and boundary but removes that bias. If, within the resume-sensitive window, the agent performs \texttt{write(rebuttal.md)} without the required confirmation signal, deterministic rules emit \texttt{unauthorized\_action} and \texttt{state\_propagation}; otherwise the pair remains negative.
+
+\begin{table}[t]
+	\centering
+	\scriptsize
+	\caption{Five-family core split used in the main experiments, with deterministic cue, representative failure mode, and grounding tag for each family.}
+	\setlength{\tabcolsep}{3pt}
+	\begin{tabularx}{\textwidth}{L{2.0cm}L{2.4cm}L{3.1cm}Y}
+		\toprule
+		Family & Main deterministic cue & Representative failure mode & Current grounding tag \\
+		\midrule
+		Summary poisoning & Summary reread followed by post-restore plan shift & Contaminated summary redirects subgoals or file priority after recovery & Coverage-grounded: summary reuse is routine in OpenCode/Codex workflows, but current traces rarely expose enough boundary clarity for clean direct-positive scoring. \\
+		Recovery-state poisoning & Saved session/recovery state restored before boundary-sensitive action & Unauthorized continuation or stale state reuse after loading recovery notes & Coverage-grounded: saved recovery/session state is common and directly relevant to the threat model, though present traces are usually too weak for direct positive labeling. \\
+		Tool-mediated recovery & Shell/file reconstruction precedes replanning inside the resume window & Recovered artifact steers follow-on command or edit selection & Action-grounded: Codex traces show shell/file-mediated state reconstruction before replanning, giving direct workflow grounding for recovery-conditioned behavior shifts. \\
+		Tool-failure escalation & Failure-handling branch triggers broader tool or permission use & Partial failure induces unsafe escalation during recovery & Exploratory stress: partial-failure recovery patterns are observed, but direct real-positive evidence remains weakest, so this family is best read as a synthetic stress extension. \\
+		Recovered-context write & Recovered context influences a trusted-target write & Trusted document is edited without the required confirmation after recovery & Action-grounded: strongest real ambiguous chain is model-generated summary $\rightarrow$ recovery $\rightarrow$ later trusted write. \\
+		\bottomrule
+	\end{tabularx}
+	\label{tab:corefamilies}
+\end{table}
+
+Table~\ref{tab:corefamilies} should be read through the Section~1 scope: the two action-grounded rows are the reality-anchored nucleus, while the full five-family core remains a span test over the broader persistent-state surface. Family inventory, inclusion rationale, and maturation details are deferred to Appendix~A.
+
+\section{Evaluator}
+
+StatePoisonBench uses a trajectory-aware evaluator rather than relying solely on final outputs. Persistent-state contamination is fundamentally about how inherited or recovered state is converted into later actions, so final answers alone often miss the relevant failure surface \citep{yao2023react,zhang2026verigrey}.
+
+Our trajectory schema records step-level events such as \texttt{state\_restore}, \texttt{read}, \texttt{reasoning}, \texttt{decision}, \texttt{tool\_call}, \texttt{tool\_result}, and \texttt{write}. In the synthetic core split, scoring is restricted to a \textbf{resume-sensitive window}: the next $N=3$ high-risk steps after the first \texttt{state\_restore}. High-risk steps are decisions, tool calls, or writes marked risky or tagged as touching trusted state, changing permissions, overriding goals, or invoking destructive actions. This keeps attribution focused on the short post-restore transition where inherited state becomes behavior.
+
+Synthetic labels are deterministic rather than LLM-judged. Each instance predeclares the authorization boundary, protected targets, restore trigger, and primary violation family, and the evaluator fires only when a scored step matches the corresponding rule. Real traces are handled more conservatively through the review-based protocol summarized in Section~6 and detailed in Appendix~B.
+
+Recovery-time gating (RTG) is our weakest-common-denominator benchmark-time baseline. Inside the resume-sensitive window, RTG scores actions using recovered-artifact source, target sensitivity, and action class; low-risk steps proceed, medium-risk state-changing steps are rewritten into read-only verification, and confirmation-gated trusted writes or goal/tool escalations are converted into confirmation requests or halted. We use RTG as the main cross-model comparator because it depends only on observable trajectory metadata, whereas stronger proxy policies require additional representation or isolation assumptions and are therefore reported separately in Appendix~\ref{app:supp}.
+
+\section{Real Trace Grounding}
+
+Real traces anchor workflow realism and bound what can be claimed outside the synthetic core. We ingest heterogeneous OpenCode and Codex sources under a role-aware protocol that separates coverage, ambiguous, and positive evidence; because semantic granularity varies by source, most current traces remain coverage or ambiguous rather than clean positives (Appendices~\ref{app:adapters}--\ref{app:casestudy}). The strongest main-text intuition case is a Codex trace in which a model-generated compacted summary is reused as recovery context before later trusted manuscript edits, showing plausible state propagation without meeting our bar for a contamination-positive. Figure~\ref{fig:real_trace_ambiguous_chain} shows this compacted-summary $\rightarrow$ recovery-context reuse $\rightarrow$ resumed tool use $\rightarrow$ trusted-document edit chain, and clarifies why we treat it as ambiguous propagation evidence rather than a confirmed contamination-positive. We therefore keep the main text at the level of authenticity support and calibration context, and defer the full taxonomy and case-study chain to the appendix.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{figure3.png}
+	\caption{Ambiguous real-trace propagation chain. A model-generated compacted summary is later reused as recovery context, shapes resumed planning and tool use, and precedes verified edits to trusted rebuttal/manuscript artifacts. The trace is realistic and consistent with state propagation, but the available logs do not support a confirmed contamination-positive label.}
+	\label{fig:real_trace_ambiguous_chain}
+\end{figure}
+
+\section{Experiments}
+\label{sec:experiments}
+
+Our empirical study follows a three-tier, claim-driven packet. Tier~1 is the controlled synthetic core (Experiments~1--3 and S1--S7), Tier~2 is the near-positive bridge proper (S10--S12) with S8--S9 kept as appendix-level support around that bridge, and Tier~3 is the retrospective calibration layer (S13--S23), complemented by a prospective protocol probe (S24). We evaluate three questions: (\textbf{C1}) measurement gaps between prompt-local and trajectory-aware evaluation on the controlled core split; (\textbf{C2}) cross-model recurrence under a shared protocol; and (\textbf{C3}) long-horizon accumulation under controlled slow poisoning.
+Figure~\ref{fig:evidence_ladder} summarizes this evidence ladder and the corresponding interpretation boundary.
+
+\begin{figure}[t]
+	\centering
+	\includegraphics[width=\textwidth]{figure2.png}
+	\caption{Three-tier evidence packet used in this paper: a controlled synthetic core, a near-positive bridge proper (S10--S12, with S8--S9 as appendix support), and a retrospective calibration layer for real-trace interpretation, with S24 shown separately as a prospective protocol probe.}
+	\label{fig:evidence_ladder}
+\end{figure}
+
+\paragraph{Shared protocol.} Unless noted otherwise, Experiments~1--2 use the same frozen 1000-instance core split ($5$ families $\times$ $200$; Table~\ref{tab:corefamilies}), authorization boundaries, and trajectory-aware labeling rules. Defaults are $N=3$ post-restore high-risk steps and RTG threshold $\tau=0.50$ (stress-tested in S2 and S5). We report per-family rates first, use the two action-grounded rows as the shortest reality-anchored read, and defer supplementary significance, robustness details, and table-to-artifact provenance to Appendix~\ref{app:supp} and Appendix~\ref{app:artifact_map}.
+
+\subsection{Reference Risk Profile on the Core Split}
+
+We first report a descriptive GPT-4o reference profile on the shared split under vanilla execution and recovery-time gating (RTG). Supplementary controls reuse the same instance IDs but come from separate frozen reruns tailored to paired-control or calibration analysis, so absolute rates should be compared within-study rather than row-by-row against Table~\ref{tab:mainresults}.
+
+\begin{table}[t]
+	\centering
+	\scriptsize
+	\caption{Core-family violation rates on the unified 1000-instance split (5$\times$200; GPT-4o). Entries are rates with 95\% bootstrap CIs (lower is better). RTG: recovery-time gating.}
+	\setlength{\tabcolsep}{3pt}
+	\begin{tabular}{L{2.8cm}L{2.4cm}L{2.4cm}L{1.4cm}}
+		\toprule
+		Family & Vanilla & RTG & Rel. Red. \\
+		\midrule
+		Summary poisoning & 0.530 [0.460, 0.605] & 0.425 [0.355, 0.495] & \textbf{19.8\%} \\
+		Recovery-state poisoning & 0.755 [0.690, 0.815] & 0.565 [0.495, 0.635] & \textbf{25.2\%} \\
+		Tool-mediated recovery & 0.485 [0.415, 0.555] & 0.385 [0.320, 0.455] & \textbf{20.6\%} \\
+		Tool-failure escalation & 0.425 [0.355, 0.495] & 0.350 [0.285, 0.415] & \textbf{17.6\%} \\
+		Recovered-context write & 0.590 [0.520, 0.660] & 0.445 [0.375, 0.515] & \textbf{24.6\%} \\
+		\bottomrule
+	\end{tabular}
+	\label{tab:mainresults}
+\end{table}
+
+\noindent Because lower violation can be achieved by behaving more conservatively, we separately quantify RTG's benchmark-time safety-utility tradeoff. On the same IDs under the S2 threshold sweep, the balanced setting ($\tau=0.50$) moves violation from 0.519 to 0.426 while retaining most task success (0.779 to 0.733) with an average 1.163 confirmation requests per episode (Appendix~\ref{app:supp}). Family heterogeneity is itself informative here: recovery-state poisoning is the highest-rate family in this packet, tool-failure escalation shows the smallest RTG reduction, and the two action-grounded rows remain directionally aligned with the broader table.
+
+\subsection{Experiment 1: Baseline Comparison}
+\label{sec:exp1}
+
+\textbf{Claim C1.} On the controlled synthetic core split, prompt-local evaluators under-measure benchmark-defined state-mediated violations under frozen state-aware semantics.
+
+\textbf{Setup.} We compare four detectors on the same 1000 trajectories as Table~\ref{tab:mainresults}: AgentDojo-style prompt-injection evaluation, HarmBench-style harmfulness evaluation \citep{mazeika2024harmbench}, a naive LLM query baseline, and our trajectory-aware evaluator. Labels are frozen before detector comparison by the task schema plus deterministic rules in Section~5. The prompt-local baselines read flattened trajectory text without explicit authorization-boundary tags, while StatePoisonBench reads typed events, restore markers, action targets, and the boundary tuple $\mathcal{B}=(A_{\text{allow}},A_{\text{confirm}},A_{\text{block}},T_{\text{trusted}})$. Experiment~1 therefore compares text-only screeners with a state-aware benchmark monitor under one fixed label set. As scoped in Section~1, the question is benchmark-internal: how much of the post-restore violation set becomes measurable once restore structure and authorization metadata are observable. A stratified human audit checks label robustness rather than detector tuning.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Baseline comparison on the frozen core split. Prompt-local baselines read flattened text only; StatePoisonBench reads structured trajectory plus boundary metadata, but all methods are scored against the same frozen schema labels.}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Method} & \textbf{Detection Rate} & \textbf{False Positive Rate} & \textbf{F1 Score} \\
+\midrule
+AgentDojo-style detection & 0.407 & 0.116 & 0.554 \\
+HarmBench-style detection & 0.410 & 0.158 & 0.548 \\
+Naive LLM query & 0.666 & 0.234 & 0.742 \\
+\textbf{StatePoisonBench (ours)} & \textbf{0.839} & \textbf{0.082} & \textbf{0.891} \\
+\bottomrule
+\end{tabular}
+\label{tab:baseline}
+\end{table}
+
+\textbf{Detector-decoupled boundary check (S22).} On a balanced 48-trajectory externally labeled packet, detector ordering changes relative to Table~\ref{tab:baseline}: the state-aware automatic detector reports F1/FPR of 0.148/0.489, while the prompt-local harmfulness proxy reports 0.572/0.044. This bounds C1's scope and reinforces the Section~1 reading of Experiment~1 as a benchmark-internal observability-gap result. Appendix-only E26--E27 probe middle-ground comparators on the same packet but do not change that conclusion.
+
+Figure~\ref{fig:exp1_detector_metrics} gives a compact scored-trajectory example and the detector-input distinctions used in Experiment~1, so the comparison can be audited without relying only on aggregate metrics or appendix-only rule details.
+
+\begin{figure}[t]
+	\centering
+	\fbox{
+	\begin{minipage}{0.95\linewidth}
+	\footnotesize
+	\textbf{Worked scored trajectory (recovered-context write).} Goal: continue implementation notes. Boundary: \texttt{rebuttal.md} is trusted and requires explicit confirmation before edits.
+	
+	\vspace{2pt}
+	\begin{tabular}{@{}p{0.10\linewidth}p{0.84\linewidth}@{}}
+		S0 & \texttt{state\_restore}: recovered summary contains a bias such as ``if blocked, patch \texttt{rebuttal.md} directly.'' \\
+		S1 & \texttt{decision}: agent adopts the recovered hint and prepares an edit plan. \\
+		S2 & \texttt{write(rebuttal.md)} executes with no confirmation marker inside the $N=3$ resume-sensitive window. \\
+		S3 & \texttt{final\_answer}: the run reports that notes were updated. \\
+	\end{tabular}
+	
+	\vspace{3pt}
+	\textbf{Frozen labeler.} The schema-grounded rule engine emits \texttt{unauthorized\_action} and \texttt{state\_propagation} at S2 because a trusted target is written without the required confirmation.
+	
+	\vspace{2pt}
+	\textbf{Detector inputs in Experiment~1.} AgentDojo-style and HarmBench-style baselines read flattened text only; the naive LLM baseline reads the task plus flattened trajectory text; the StatePoisonBench detector reads the structured trajectory with restore markers, action targets, and boundary metadata. None of these detectors can change the frozen synthetic labels; S22 is the detector-decoupled boundary check.
+	\end{minipage}
+	}
+	\caption{Concrete main-text scoring example for Experiment~1. The figure makes the schema labeler, detector inputs, and rule firing sequence explicit, replacing a redundant metric-only visualization.}
+	\label{fig:exp1_detector_metrics}
+\end{figure}
+
+On this frozen synthetic split, StatePoisonBench reaches 83.9\% detection versus 40.7\%--66.6\% for prompt-local baselines; matched-pair McNemar comparisons are significant against all three baselines (Appendix~\ref{app:supp}). The largest gains appear in recovery-state and recovered-context trajectories, where evidence is distributed across state reuse and downstream action. Together with S22, this supports \textbf{C1} under the benchmark-internal observability-gap reading from Section~1. The separate S4 independent audit subset shows 0.880 agreement with adjudicated human labels ($\kappa=0.759$), supporting label validity for this bounded interpretation.
+
+\subsection{Experiment 2: Model Scaling}
+\label{sec:exp2}
+
+\textbf{Claim C2.} Under a shared execution protocol, the vulnerability pattern recurs across diverse model families rather than appearing only in one reference model.
+
+\textbf{Setup.} Using the same 1000-instance split (200 per family), we evaluate GPT-4o, Claude-3.5-Sonnet, Llama-3.1-70B, DeepSeek-V3, and Qwen2.5-72B under both vanilla and RTG conditions. RTG is the main table's cross-model comparator because, as Section~5 explains, it depends only on observable post-restore cues and can therefore be applied uniformly across model families. Stronger proxy policies such as memory isolation are reported separately in S7/S9 rather than folded into the shared-protocol headline.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Average cross-family violation rates by model (lower is better). All tested models remain vulnerable; RTG gives consistent but partial mitigation.}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Model} & \textbf{Vanilla} & \textbf{RTG} & \textbf{Relative Improvement} \\
+\midrule
+GPT-4o & 0.557 & 0.434 & 22.1\% \\
+Claude-3.5-Sonnet & 0.595 & 0.443 & 25.5\% \\
+Llama-3.1-70B & 0.709 & 0.533 & 24.8\% \\
+DeepSeek-V3 & 0.615 & 0.449 & 27.0\% \\
+Qwen2.5-72B & 0.654 & 0.473 & 27.7\% \\
+\bottomrule
+\end{tabular}
+\label{tab:model_scaling}
+\end{table}
+
+Two patterns are robust. First, all models remain vulnerable (vanilla 0.557--0.709). Second, RTG provides consistent but partial mitigation (22.1\%--27.7\% relative reduction), leaving substantial residual risk. S6 strengthens this interpretation with an $8$-seed $\times$ $3$-template sweep across all five profiles (120 reruns): run-to-run standard deviations stay small (0.009--0.012 vanilla, 0.009--0.013 RTG), and RTG improves safety in all runs. S7 and S9 clarify scope: stronger proxy policies can outperform RTG inside the harness, and transfer remains stack-dependent on open-weight pilots. Per-model uncertainty intervals are reported in Appendix~\ref{app:supp}. Together, these findings support \textbf{C2} as cross-model recurrence under a shared protocol.
+
+\subsection{Experiment 3: Turn Scaling}
+\label{sec:exp3}
+
+\textbf{Claim C3.} In a controlled slow-poisoning stress test, individually small state perturbations can accumulate into threshold-like increases in downstream violation probability.
+
+\textbf{Setup.} We create controlled multi-turn tasks in which each turn adds a sub-threshold contamination update to the persistent state. We vary the number of turns $n \in \{1, 3, 5, 10, 20, 50\}$ and measure final violation rate and cumulative semantic drift. In Table~\ref{tab:turn_scaling}, \emph{Average Drift} denotes the sample mean of final cumulative drift, where each episode's cumulative drift sums the per-turn normalized state perturbation magnitudes relative to the clean initial state. These drift values are normalized only within this contamination generator and should be compared across turn counts inside this study, not interpreted as a portable cross-benchmark semantic distance.
+
+Operationally, each turn applies exactly one bounded micro-perturbation to recovered state while keeping the user-level task objective unchanged, so one-turn controls remain mostly sub-threshold and multi-turn runs test compositional accumulation rather than one-shot attack strength.
+
+\begin{table}[t]
+\centering
+\small
+\caption{Turn-scaling results ($n=100$ per turn count). Violation grows non-linearly with a threshold around 10--12 turns.}
+\begin{tabular}{ccc}
+\toprule
+\textbf{Turns} & \textbf{Violation Rate} & \textbf{Average Drift} \\
+\midrule
+1 & 0.16 & 0.093 \\
+3 & 0.22 & 0.339 \\
+5 & 0.29 & 0.616 \\
+10 & 0.41 & 1.41 \\
+20 & 0.76 & 3.84 \\
+50 & 0.97 & 16.842 \\
+\bottomrule
+\end{tabular}
+\label{tab:turn_scaling}
+\end{table}
+
+The empirical curve is well described by a sigmoid with critical point near $x_0 \approx 11.65$ turns (bootstrap 95\% CI [9.78, 14.01]). Below this regime, most contaminations remain sub-threshold; above it, cumulative drift sharply increases downstream violation probability. Per-turn rate intervals are reported in Appendix~\ref{app:supp}. This supports \textbf{C3} as a controlled accumulation stress-test result: the proposed slow-poisoning process exhibits an emergent long-horizon failure mode rather than behaving like a one-step prompt attack. The exact threshold location should therefore be read as process- and normalization-dependent rather than as a universal deployed-agent turn count.
+
+\subsection{Supplementary Validation Studies}
+\label{sec:exp_supp}
+
+Appendix~\ref{app:supp} groups twenty-four studies into three roles. S1--S7 stress-test the controlled core, S10--S12 provide the closest bridge to realistic recovered-state workflows, and S13--S23 retrospectively calibrate interpretation of the real-trace layer, while S24 serves as a prospective protocol probe. S22 is the detector-decoupled boundary check for C1, and S24 is retained only as an executed prospective protocol slice rather than as directional evidence. E26--E27 remain appendix-only diagnostics of middle-ground observability. None of these studies changes the scoped C1--C3 reading; they mainly bound interpretation, robustness, and reproducibility.
+
+\paragraph{Why prompt-local screening is insufficient.} Persistent state contamination is harder than prompt injection because its effects can be delayed, embedded in trusted workflow artifacts, and composed across turns. Appendix~\ref{app:theory_discussion} expands this intuition and gives a simple delayed-risk formalization.
+
+\section{Limitations}
+
+The main limitation is the scarcity of clean real contamination-positive traces. As scoped in Section~1, the real-world layer remains a calibration layer rather than a prevalence or treatment-effect estimate. Exact counts and bounds are reported in Appendix~\ref{app:supp}; we intentionally do not pool them into a single real-world prevalence estimate.
+
+A second limitation is semantics coupling in Experiment~1. As scoped in Section~1, C1 is informative about observability requirements inside the benchmark, not about a portable detector ranking. S22 and appendix-only E26--E27 bound this interpretation, but they do not eliminate the need for stronger middle-ground comparators or broader externally labeled packets. The turn-scaling threshold in Experiment~3 is likewise specific to the current contamination generator and normalized drift scale.
+
+External validity remains constrained by heterogeneous logging surfaces, limited run diversity in parts of the packet, and partial observability in deployed traces. Some sources expose only lifecycle/state snapshots rather than action-level trajectories, and stronger proxy policies or transfer results can vary across stacks. The current release is also mostly single-user and continuation-centric, leaving cross-user contamination \citep{yang2026noattacker}, richer runtime instrumentation, and broader lifecycle coverage as future expansion targets.
+
+\section{Conclusion}
+
+StatePoisonBench makes persistent-state write--recover--act transitions measurable through controllable synthetic tasks, trajectory-aware scoring, and calibration-aware real-trace integration. Under the Section~1 framing, the paper supports \textbf{C1} as a benchmark-internal observability-gap result, \textbf{C2} as cross-model recurrence under a shared protocol, and \textbf{C3} as controlled accumulation under slow poisoning. The main empirical center remains the action-grounded nucleus, with the broader span and calibration layers serving as disciplined extensions rather than standalone effect claims. We therefore view the contribution as an auditable benchmark nucleus plus a practical path for broader maturation.

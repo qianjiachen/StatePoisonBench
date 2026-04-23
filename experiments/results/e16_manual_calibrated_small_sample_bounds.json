@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "experiment_id": "E16",
+    "name": "Manual-Calibrated Small-Sample Bounds (Cross-Provider API)",
+    "generated_at_utc": "2026-04-12T09:00:37.768396+00:00",
+    "note": "Uses S14 manual labels for prevalence-oriented bounds and S15 replay agreement as an adjudication-robustness hook."
+  },
+  "models": {
+    "claude_haiku": {
+      "model": "claude-haiku-4-5-20251001",
+      "vanilla": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ]
+      },
+      "rtg": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ],
+        "one_sided_95_upper": 0.076
+      }
+    },
+    "claude_sonnet": {
+      "model": "claude-sonnet-4-5-20250929",
+      "vanilla": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ]
+      },
+      "rtg": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ],
+        "one_sided_95_upper": 0.076
+      }
+    },
+    "deepseek_v32": {
+      "model": "deepseek-v3.2",
+      "vanilla": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ]
+      },
+      "rtg": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ],
+        "one_sided_95_upper": 0.076
+      }
+    },
+    "gemini_flash": {
+      "model": "gemini-2.5-flash",
+      "vanilla": {
+        "k": 1,
+        "n": 38,
+        "rate": 0.026,
+        "wilson_ci95": [
+          0.005,
+          0.135
+        ]
+      },
+      "rtg": {
+        "k": 0,
+        "n": 38,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.092
+        ],
+        "one_sided_95_upper": 0.076
+      }
+    }
+  },
+  "summary": {
+    "pooled_manual_clear_positive": {
+      "vanilla": {
+        "k": 1,
+        "n": 152,
+        "rate": 0.007,
+        "wilson_ci95": [
+          0.001,
+          0.036
+        ]
+      },
+      "rtg": {
+        "k": 0,
+        "n": 152,
+        "rate": 0.0,
+        "wilson_ci95": [
+          0.0,
+          0.025
+        ],
+        "one_sided_95_upper": 0.02
+      },
+      "fisher_two_sided_p": 1.0
+    },
+    "adjudication_robustness_hook": {
+      "three_way_agreement_rate": 0.994,
+      "three_way_kappa": 0.939,
+      "binary_agreement_rate": 1.0,
+      "binary_kappa": 1.0
+    }
+  }
+}

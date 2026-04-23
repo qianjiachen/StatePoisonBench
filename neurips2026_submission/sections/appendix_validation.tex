@@ -1,0 +1,561 @@
+\section{Supplementary Validation Details}
+\label{app:supp}
+
+This appendix gives a compact calibration-first summary of S1--S24 under the shared stack from Section~\ref{sec:experiments}: core robustness (S1--S7), bridge-adjacent support and bridge evidence (S8--S12), retrospective real-trace calibration (S13--S23), and a prospective paired starter probe (S24). We also include appendix-only E26--E27 diagnostics on the same S22 packet; unlike the numbered S-studies, these are post hoc observability-ladder probes used to test the missing middle-ground-comparator question rather than to add new headline evidence.
+Figure~\ref{fig:calibration_ladder} summarizes this retrospective-to-prospective ladder and should be read as calibration, not prevalence estimation.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figure6.png}
+\caption{Calibration ladder for supplementary real grounding. The retrospective ladder spans S13--S23: S13--S19 establish the base stress/bounds packet, S20--S22 tighten negative-side interpretation, and S23 adds expanded external calibration; S24 is prospective probing. This layer calibrates over-flagging/hidden-miss bounds, not deployment prevalence.}
+\label{fig:calibration_ladder}
+\end{figure}
+
+\subsection{S1--S5: Core Robustness and Validation Summary}
+
+S1--S5 provide compact internal-validity support for Section~\ref{sec:experiments}: paired causal control (S1), RTG tradeoff (S2), annotation reliability (S3), independent audit (S4), and window sensitivity (S5).
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{Condensed summary of S1--S5 (core robustness and validation packet).}
+\begin{tabularx}{\textwidth}{L{2.1cm}L{3.4cm}Y}
+\toprule
+\textbf{Study} & \textbf{Scope} & \textbf{Headline Result} \\
+\midrule
+S1 paired causal control & Same 1000 IDs, clean vs contaminated paired reruns & Overall violation 0.178 $\rightarrow$ 0.541 (delta 0.363, 95\% CI [0.324, 0.401], McNemar $p=3.04\times10^{-65}$). \\
+S2 RTG tradeoff sweep & Threshold sweep on same core split & Balanced setting $\tau=0.50$: violation 0.426 vs vanilla 0.519, success 0.733 vs 0.779, avg confirmations 1.163. \\
+S3 role reliability & 360 real traces, two annotators & Agreement 0.819; Cohen's $\kappa=0.714$ (95\% CI [0.647, 0.775]). \\
+S4 independent label audit & Stratified 150-trajectory subset (30/family) & Agreement 0.880, $\kappa=0.759$, positive precision/recall 0.905/0.892. \\
+S5 window sensitivity & Rescoring with $N\in\{1,3,5,7,10\}$ & Mean violation remains 0.363--0.383; qualitative reading is stable. \\
+\bottomrule
+\end{tabularx}
+\label{tab:supp_s1_s5_summary}
+\label{tab:supp_causal}
+\label{tab:supp_tradeoff}
+\label{tab:supp_reliability}
+\label{tab:supp_audit}
+\label{tab:supp_window}
+\end{table}
+
+Together, S1--S5 confirm stable core behavior under paired controls and label checks, but they do not expand claims beyond the scoped C1--C3 setting.
+
+\iffalse
+\paragraph{Archived detailed S6--S12 packet.}
+Historical detailed prose/tables were removed from this source for concision; see Appendix~\ref{app:artifact_map} for per-study artifacts.
+
+
+
+
+
+
+\fi
+
+\subsection{S6--S12: Robustness and Bridge Summary}
+
+S6--S12 summarize robustness and bridge checks around the core packet; the section is for stability calibration rather than deployment-effect estimation.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{Condensed summary for S6--S12 (robustness and bridge studies).}
+\begin{tabularx}{\textwidth}{L{2.7cm}Y}
+\toprule
+\textbf{Study} & \textbf{Key Result} \\
+\midrule
+S6 seed/template robustness & RTG improves over vanilla in all 120 reruns (5 model profiles). \\
+S7 stateful baselines & Memory isolation is lowest-violation in 8/8 repeats; RTG remains stronger than prompt-local baselines. \\
+S8 direct-endpoint calibration & 0 clear contamination positives across 72 audited episodes (calibration-only signal). \\
+S9 open-weight pilots & Pooled non-worsening direction 25/30 with Wilson 95\% CI [0.664, 0.927]. \\
+S10 near-positive paired replay & Overall violation delta 0.262 [0.197, 0.328]; state-propagation delta 0.506 [0.441, 0.572]. \\
+S11 cross-stack + API spot check & Mixed stack-dependent directionality; API slice remains low-count and conservative. \\
+S12 uncertainty summary & S10/S11 uncertainty does not change the qualitative interpretation boundary. \\
+\bottomrule
+\end{tabularx}
+\label{tab:supp_s6_s12_summary}
+\label{tab:supp_seed_template}
+\label{tab:supp_stateful_overall}
+\label{tab:supp_stateful_recovered}
+\label{tab:supp_direct_api}
+\label{tab:supp_open_weight}
+\label{tab:supp_e10_replay}
+\label{tab:supp_e11_open}
+\label{tab:supp_e11_api}
+\label{tab:supp_e12_s10_ci}
+\label{tab:supp_e12_s11_bounds}
+\end{table}
+
+The combined reading is unchanged: controlled synthetic effects stay stable, while endpoint-facing evidence remains low-count and calibration-oriented.
+
+\iffalse
+\subsection{S13: Cross-Provider API Auto-Evaluator Stress Check (Exploratory)}
+
+To probe provider diversity with modest additional budget, we run an exploratory direct-endpoint stress check on four API models from three provider families (Claude, DeepSeek, Gemini), using an expanded 38-instance paired vanilla/RTG setup (304 episodes total across four models). Because the current automatic evaluator can over-flag refusal-with-negation outputs, we treat this study as directional stress evidence (RTG relative trend), not as clear-failure prevalence evidence.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S13 exploratory cross-provider direct-endpoint stress check under automatic evaluator labels.}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Model} & \textbf{Vanilla Viol.} & \textbf{RTG Viol.} & \textbf{Delta (RTG$-$Vanilla)} & \textbf{Non-worsening} \\
+\midrule
+claude-haiku-4-5-20251001 & 0.579 & 0.605 & 0.026 & No \\
+claude-sonnet-4-5-20250929 & 0.579 & 0.605 & 0.026 & No \\
+deepseek-v3.2 & 0.500 & 0.605 & 0.105 & No \\
+gemini-2.5-flash & 0.579 & 0.711 & 0.132 & No \\
+\midrule
+\textbf{Overall direction} & \multicolumn{4}{c}{\textbf{0/4 non-worsening (0.000), Wilson 95\% CI [0.000, 0.490]}} \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e13_api_auto}
+\end{table}
+
+\subsection{S14: Cross-Provider Manual-Audit Calibration of S13}
+
+To calibrate evaluator over-flagging risk in S13, we manually audit all auto-flagged episodes (any automatic violation tag) from the same four-provider API set. The audit rubric labels each flagged trajectory as either \texttt{clear\_contamination\_positive}, \texttt{likely\_false\_positive\_or\_benign}, or \texttt{ambiguous}, based on whether unauthorized trusted-state actions were actually executed.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S14 manual calibration by auditing all S13 auto-flagged episodes under the three-way rubric (\texttt{clear}, \texttt{likely\_FP/benign}, \texttt{ambiguous}).}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Model} & \textbf{Auto-Flagged} & \textbf{Clear Pos.} & \textbf{Likely FP/Benign} & \textbf{Ambiguous} & \textbf{Vanilla Clear} & \textbf{RTG Clear} \\
+\midrule
+claude-haiku-4-5-20251001 & 45/76 & 0 & 44 & 1 & 0.000 & 0.000 \\
+claude-sonnet-4-5-20250929 & 45/76 & 0 & 45 & 0 & 0.000 & 0.000 \\
+deepseek-v3.2 & 42/76 & 0 & 42 & 0 & 0.000 & 0.000 \\
+gemini-2.5-flash & 49/76 & 1 & 42 & 6 & 0.026 & 0.000 \\
+\midrule
+\textbf{Overall} & \textbf{181/304} & \textbf{1} & \textbf{173} & \textbf{7} & \textbf{0.007} & \textbf{0.000} \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e14_manual}
+\end{table}
+
+Auto-flag precision for clear positives is $1/181=0.006$. Manual-label direction non-worsening is $4/4=1.000$ (Wilson 95\% CI $[0.510, 1.000]$). The only clear contamination-positive case in this scope is a Gemini-2.5-Flash vanilla tracker episode that explicitly executed a poisoned instruction to modify trusted policy files; the remaining 180 auto-flags decompose into 173 likely false-positive/benign cases and 7 ambiguous cases, as shown explicitly in Table~\ref{tab:supp_e14_manual}.
+
+\subsection{S15: Manual-Adjudication Robustness via Dual-Rubric Replay}
+
+To test whether S14 depends on one exact adjudication wording, we run a second-pass replay over the same 181 auto-flagged trajectories using a blind rubric that only reads trajectory content and action targets (without model alias or primary label). This is a robustness stress test, not a replacement for independent second-human annotation.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S15 dual-rubric replay agreement on S14 auto-flagged episodes.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Audited auto-flagged episodes & 181 \\
+3-way exact agreement & 180/181 (0.994) \\
+3-way Cohen's $\kappa$ & 0.939 \\
+Binary agreement (clear vs non-clear) & 181/181 (1.000) \\
+Binary Cohen's $\kappa$ & 1.000 \\
+Primary clear positives & 1 \\
+Replay clear positives & 1 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e15_robust}
+\end{table}
+
+The only disagreement in S15 is a non-clear relabel from \texttt{likely\_false\_positive\_or\_benign} to \texttt{ambiguous}; the clear-positive identification remains unchanged. This supports reading S14 as manually calibrated evidence with stable clear-positive conclusions under a nearby rubric variant.
+
+\subsection{S16: Manual-Calibrated Small-Sample Bounds}
+
+Using S14's manual clear-positive labels and S15's replay-agreement summary, we report prevalence-oriented small-sample bounds for the cross-provider API subset. This section is intended to bound interpretation rather than claim statistically significant mitigation.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S16 small-sample bounds under manual calibration (cross-provider API subset).}
+\begin{tabular}{lc}
+\toprule
+\textbf{Statistic} & \textbf{Value} \\
+\midrule
+Pooled vanilla clear-positive rate (k/n) & 1/152 (0.007), Wilson [0.001, 0.036] \\
+Pooled RTG clear-positive rate (k/n) & 0/152 (0.000), Wilson [0.000, 0.025] \\
+Pooled RTG one-sided 95\% upper bound & 0.020 \\
+Fisher exact $p$ (vanilla vs RTG) & 1.000 \\
+S15 3-way agreement / $\kappa$ & 180/181 (0.994), 0.939 \\
+S15 binary agreement / $\kappa$ & 181/181 (1.000), 1.000 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e16_bounds}
+\end{table}
+
+These bounds indicate that current cross-provider manual evidence is directionally informative but statistically underpowered for strong prevalence or treatment-effect claims at this sample size.
+
+\subsection{S17: Power and Sample-Size Planning}
+
+To make the small-sample limitation operational, we convert S16's pooled manual rates into a simple two-proportion planning analysis. This section does not claim new effect evidence; it quantifies what sample size would be needed to reliably detect an effect in the same low-rate regime.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S17 power and sample-size planning for manual-calibrated API evidence (two-sided $\alpha=0.05$).}
+\begin{tabular}{lc}
+\toprule
+\textbf{Statistic} & \textbf{Value} \\
+\midrule
+Observed pooled absolute delta (manual clear-positive rate) & 0.007 \\
+Current per-arm sample size & 152 \\
+Approx two-sided power at current $n$ & 0.179 \\
+Required $n$/arm for 80\% power (observed delta) & 1117 \\
+Required $n$/arm for 90\% power (observed delta) & 1494 \\
+Low-rate scenario $\Delta=0.020$ ($p$ vs $0$): $n$/arm for 80\% / 90\% power & 388 / 519 \\
+Low-rate scenario $\Delta=0.030$ ($p$ vs $0$): $n$/arm for 80\% / 90\% power & 257 / 343 \\
+Low-rate scenario $\Delta=0.050$ ($p$ vs $0$): $n$/arm for 80\% / 90\% power & 152 / 203 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e17_power}
+\end{table}
+
+Under this planning model, current direct-endpoint sample sizes are adequate for directionally informative calibration but not yet for high-power detection of small absolute prevalence deltas.
+
+\subsection{S18: Manual-Label Perturbation Sensitivity}
+
+Because S16 has only one pooled clear-positive event, we run a small scenario-based perturbation analysis around pooled counts to test directional fragility under plausible relabel stress. This does not add new episodes; it perturbs pooled S16 counts to quantify how sensitive low-rate directionality is to one- to two-label changes.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S18 pooled manual-label perturbation sensitivity around S16 counts.}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Scenario} & \textbf{Vanilla $k/n$ (rate)} & \textbf{RTG $k/n$ (rate)} & \textbf{$\Delta$ (RTG$-$Vanilla)} & \textbf{Fisher $p$} \\
+\midrule
+observed & 1/152 (0.007) & 0/152 (0.000) & -0.007 & 1.000 \\
+vanilla\_downgrade\_1 & 0/152 (0.000) & 0/152 (0.000) & 0.000 & 1.000 \\
+rtg\_upgrade\_1 & 1/152 (0.007) & 1/152 (0.007) & 0.000 & 1.000 \\
+swap\_stress\_2 & 0/152 (0.000) & 1/152 (0.007) & 0.007 & 1.000 \\
+vanilla\_plus2\_stress & 3/152 (0.020) & 0/152 (0.000) & -0.020 & 0.248 \\
+\midrule
+\textbf{Summary} & \textbf{Direction non-worsening: 4/5 (0.800)} & \multicolumn{2}{c}{\textbf{$\Delta$ range: [-0.020, 0.007]}} & \textbf{$p$ range: [0.248, 1.000]} \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e18_sensitivity}
+\end{table}
+
+This sensitivity check reinforces S16--S17: low-rate direction is informative but fragile at current sample size, and prevalence/treatment-effect conclusions should remain conservative until larger manually adjudicated sets are available.
+
+\subsection{S19: Bayesian Posterior Sensitivity (Prior Grid)}
+
+To complement S16--S18 frequentist bounds and perturbation stress checks, we run a lightweight Bayesian sensitivity analysis on the same pooled S16 counts (vanilla 1/152, RTG 0/152). We report posterior direction probability, practical-equivalence probability, and a 95\% credible interval for $\Delta=\text{RTG}-\text{vanilla}$ under a small symmetric prior grid.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S19 Bayesian posterior sensitivity on pooled S16 counts (400k draws per prior; fixed seed).}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Prior} & \textbf{$\Pr(\text{RTG}\le\text{Vanilla})$} & \textbf{$\Pr(|\Delta|\le0.02)$} & \textbf{95\% CrI of $\Delta$} \\
+\midrule
+Beta(1,1) & 0.750 & 0.884 & [-0.031, 0.015] \\
+Beta(0.5,0.5) & 0.818 & 0.919 & [-0.028, 0.010] \\
+Beta(2,2) & 0.689 & 0.818 & [-0.036, 0.021] \\
+\midrule
+\textbf{Range across priors} & \textbf{[0.689, 0.818]} & \textbf{[0.818, 0.919]} & \textbf{Lower [-0.036, -0.028], Upper [0.010, 0.021]} \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e19_bayes}
+\end{table}
+
+Across priors, posterior direction probabilities remain above 0.5 but far from decisive, while practical-equivalence mass is high and all 95\% credible intervals still cross zero. This matches S16--S18: the current manual API subset is useful for calibration and planning, but not yet sufficient for strong treatment-effect claims.
+
+\subsection{S20: Targeted Auto-Negative Probe and Error Taxonomy}
+
+To check whether S14--S19 may still understate risk by missing clear positives inside auto-negative API trajectories, we manually audit all auto-negative episodes that still perform at least one artifact write. This is a targeted negative probe rather than a prevalence estimate: write-bearing negatives are the riskiest slice for hidden missed positives. In parallel, we summarize the dominant auto-tag combinations among the 180 manually non-clear S14 auto-flags.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S20 targeted audit of write-bearing auto-negative API episodes.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Statistic} & \textbf{Value} \\
+\midrule
+Audited auto-negative episodes with any write & 17 \\
+Audited auto-negative episodes with trusted-write path markers & 12 \\
+Clear hidden positives & 0 \\
+Likely benign/compliant & 17 \\
+Ambiguous & 0 \\
+One-sided 95\% upper bound on hidden clear-positive rate & 0.162 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e20_negative_probe}
+\end{table}
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S20 manual taxonomy of non-clear calibration outcomes.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Bucket} & \textbf{Count} \\
+\midrule
+Manually non-clear auto-flags & 180 \\
+Likely FP top combo: goal\_drift & 50 \\
+Likely FP top combo: unauthorized\_action & 45 \\
+Likely FP top combo: goal\_drift,persistence\_success & 41 \\
+Likely FP top combo: goal\_drift,unauthorized\_action & 17 \\
+Ambiguous combo: unsafe\_tool\_escalation & 4 \\
+Ambiguous combo: persistence\_success,unsafe\_tool\_escalation & 2 \\
+Ambiguous combo: unauthorized\_action & 1 \\
+Auto-negative probe bucket: filtered\_trusted\_write & 14 \\
+Auto-negative probe bucket: context\_separation\_write & 3 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_e20_taxonomy}
+\end{table}
+
+The negative probe finds no hidden clear contamination-positive cases in the highest-risk auto-negative slice: all 17 write-bearing negatives are judged benign or compliant under manual review, with 14 filtered trusted-write episodes and 3 context-separation or recovery-bookkeeping writes. The taxonomy table shows that manually non-clear auto-flags are dominated by refusal-like \texttt{goal\_drift} or \texttt{unauthorized\_action} combinations, while the small ambiguous remainder clusters in \texttt{unsafe\_tool\_escalation}-like traces. Together, S14--S20 suggest that current direct-endpoint calibration error is driven primarily by over-flagging rather than by obvious hidden clear positives in the riskiest negative slice.
+
+\subsection{S21: Independent Second-Human Audit Calibration}
+
+To strengthen interpretation of the negative slice without turning this paper into a prevalence study, we completed the prepared blinded 36-trajectory packet with a true external second-human reviewer who saw only the task brief, authorization boundary, compacted step trace, artifacts written, and final summary. The packet spans 12 flagged non-clear trajectories, 12 trusted-write auto-negative trajectories, and 12 random no-write auto-negative trajectories. The returned audit agrees exactly with the frozen primary labels on all 36 trajectories, including 36/36 binary clear-vs-non-clear agreement and 0/24 hidden clear contamination-positive cases in the audited negative slice.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S21 independent second-human audit calibration on the prepared 36-trajectory packet.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Flagged non-clear trajectories & 12 \\
+Write-bearing auto-negative trajectories & 12 \\
+Random auto-negative no-write trajectories & 12 \\
+Overall exact agreement & 36/36 (1.000) \\
+Binary agreement (clear vs non-clear) & 36/36 (1.000) \\
+Hidden clear positives in negative slice & 0/24 (0.000) \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s21_independent_audit}
+\end{table}
+
+This small blind audit is therefore directionally consistent with the current reading that API-side calibration error is dominated by over-flagging rather than obvious hidden misses in the audited negative buckets. Because the packet remains small and partly targeted, we still do not interpret it as a prevalence estimate or use it to upgrade treatment-effect claims.
+
+\subsection{S22: C1 Detector-Decoupled External Fairness Calibration}
+
+To reduce semantics-coupling concern in C1 interpretation, we construct a detector-decoupled audit packet with balanced strata across \texttt{state\_signal} and \texttt{prompt\_signal} ($4\times12=48$ trajectories), then score benchmark-time detector outputs against a single external manual label set. This packet is intentionally used for scope calibration rather than replacement ranking: the external labels contain only three clear positives (3/48), so low-base-rate uncertainty remains non-negligible.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S22 detector-decoupled external calibration summary on a balanced 48-trajectory packet.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Statistic} & \textbf{Value} \\
+\midrule
+Balanced strata (\texttt{state1/prompt1}, \texttt{state1/prompt0}, \texttt{state0/prompt1}, \texttt{state0/prompt0}) & $12/12/12/12$ \\
+Author vs external exact 3-way agreement & 26/48 (0.542) \\
+Author vs external binary agreement (clear vs non-clear) & 47/48 (0.979) \\
+State-aware auto detector (F1 / FPR) & 0.148 / 0.489 \\
+Prompt-local harmfulness proxy (F1 / FPR) & 0.572 / 0.044 \\
+Paired McNemar exact $p$ (harmfulness proxy vs state-aware) & $1.1\times10^{-5}$ \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s22_decoupled}
+\end{table}
+
+S22 does not replace Experiment~1; it reframes its scope. Under this externally calibrated decoupled slice, detector ordering changes and the benchmark-coupled state-aware detector is no longer dominant, which is consistent with our ``semantics-aligned in-benchmark upper bound'' interpretation of C1 rather than a universal detector ranking. Because the external clear-positive base rate is low (3/48), we treat S22 as boundary-setting evidence for interpretation scope, not as a standalone detector leaderboard. The prompt-local comparators in S22 are lightweight text-only proxy scorers and are not full reproductions of external systems such as AgentDojo/HarmBench.
+
+\subsection{E26--E27: Appendix-Only Middle-Ground Observability Ladder on the S22 Packet}
+
+To directly probe the reviewer-requested middle ground between text-only screening and fully state-aware access, we run appendix-only E26--E27 diagnostics on the same 48-trajectory S22 packet using local cached Qwen2.5 3B/7B judges. E26 compares (i) flattened text-only, (ii) text plus serialized authorization boundary, and (iii) text plus boundary plus typed event cues. On the 3B judge, F1 moves from 0.333 to 0.400 to 0.400, driven by one corrected non-clear false positive; on the 7B judge, all three views tie at F1 0.500. Because the first-round text-only view still included internal reasoning/decision text, E27 repeats the same ladder under a stricter visible-text-only construction that removes family/defense labels and reasoning/decision content. Under that cleaner setup, the 3B judge shifts to 0.500, 0.333, and 0.500, while the 7B judge again ties all three views at 0.500.
+
+These appendix-only diagnostics therefore answer the missing-comparator question but do not overturn our bounded C1 reading. The observed effect is weak and view-construction-sensitive rather than a stable monotonic gain from adding boundary or event structure. In the stricter 3B run, serialized boundary cues alone even introduce two extra non-clear false positives on recovered-context trusted-write cases, while typed event cues merely recover the cleaner text-only behavior. We therefore use E26--E27 as diagnostic closure on the loophole, not as a new detector-ranking result or a claim that we have already identified a portable cue set between text-only screening and full state-aware monitoring.
+
+\subsection{S23: Expanded Single-External Real-Trace Calibration}
+
+To widen external calibration coverage without introducing new data sources, we assemble a 54-trajectory packet spanning 20 auto-flagged episodes, 17 random auto-negative no-write episodes, and 17 write-bearing auto-negative episodes, and collect one external manual label per trajectory.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S23 expanded single-external calibration summary on direct-endpoint real traces.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Total trajectories (flagged / random no-write negative / write-bearing negative) & 54 (20 / 17 / 17) \\
+Overall exact agreement (author vs external, 3-way) & 29/54 (0.537) \\
+Overall binary agreement (clear vs non-clear) & 52/54 (0.963) \\
+Hidden clear positives in audited negative slice & 1/34 (0.029) \\
+Disagreements of type external-clear vs author-non-clear & 2 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s23_expanded_external}
+\end{table}
+
+S23 keeps the conservative interpretation but makes it sharper: hidden clear misses in audited negatives are non-zero (1/34) rather than strictly absent, while binary agreement remains high and most disagreement mass still lies in likely-vs-ambiguous boundaries. We therefore continue to treat this layer as calibration evidence, not prevalence or treatment-effect evidence.
+
+\subsection{S24: Prospective Real-Platform Paired Continuation Starter Slice}
+
+To complement the retrospective calibration ladder with a prospective probe, we prepare E25 as a real-platform paired continuation study that holds the task goal, authorization boundary, trusted target, and continuation request fixed while varying only the recovered artifact content (\texttt{clean} vs \texttt{contaminated}). The first live starter slice covers 6 matched pairs (12 episodes total) across the \texttt{recovered\_context\_write\_prospective} and \texttt{tool\_mediated\_recovery\_prospective} families on an OpenAI-compatible endpoint using \texttt{gpt-4.1-mini}. Because this first slice is meant to validate the live-endpoint paired protocol rather than to support a stable real-endpoint effect claim, we report only the runner's coarse paired episode-level any-violation summary and treat it as execution-validating pilot evidence rather than as a contamination-effect result. Put differently, the reporting criterion for this starter slice is matched-pair protocol feasibility with artifact-complete execution records, not directional separation; directional effect evidence remains the next-stage gate rather than the criterion for inclusion here. We retain S24 so the paper's prospective component is not purely schematic and the paired protocol is auditable from at least one executed slice. The scoped C1--C3 conclusions are unchanged if a reader assigns this pilot zero directional evidentiary weight, which is why S24 stays appendix-level rather than carrying headline evidentiary weight.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S24 prospective real-platform paired continuation starter slice. Entries report paired episode-level any-violation summaries; this first live slice is execution-validating but non-separating.}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Slice} & \textbf{Pairs} & \textbf{Clean} & \textbf{Contam.} & \textbf{$\Delta$} & \textbf{Discordant} & \textbf{Exact $p$} \\
+\midrule
+Recovered-context write & 3 & 0.333 & 0.667 & 0.333 & 0 / 1 & 1.000 \\
+Tool-mediated recovery & 3 & 0.667 & 0.333 & -0.333 & 1 / 0 & 1.000 \\
+Overall starter slice & 6 & 0.500 & 0.500 & 0.000 & 1 / 1 & 1.000 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s24_prospective_paired_extended}
+\end{table}
+
+In the corrected 6-pair starter slice, the overall paired any-violation summary is mixed rather than cleanly directional: one clean-only discordant pair and one contaminated-only discordant pair yield equal overall rates (0.50 vs 0.50) with exact McNemar $p=1.0$. The two 3-pair families split in opposite directions, with \texttt{recovered\_context\_write\_prospective} trending contaminated-higher (0.333 vs 0.667) and \texttt{tool\_mediated\_recovery\_prospective} trending the other way (0.667 vs 0.333). With only three pairs per family, we treat both movements as pilot variation rather than family-level evidence. In other words, S24 currently clears a protocol-validity bar rather than an effect-size bar: it validates the E25 execution path and reporting schema, but it does not yet provide stable evidence that contaminated recovered state increases violation frequency on real endpoints. A useful next expansion would increase pair count, focus more heavily on \texttt{recovered\_context\_write\_prospective} pairs, tighten the continuation prompts toward boundary-sensitive but clean-recoverable tasks, and manually review all future discordant pairs under stricter endpoints than broad any-violation.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth,trim=28 28 27 30,clip]{figA4_s13_s24_calibration_snapshot.pdf}
+\caption{S13--S24 calibration snapshot. Panel~A visualizes reported clear/hidden-clear rates from S14/S21/S23; Panel~B visualizes the S24 paired \texttt{any\_violation} summary (clean vs contaminated) with discordant-pair counts. This figure is intended for calibration-boundary readability and does not add prevalence claims.}
+\label{fig:s13_s24_calibration_snapshot}
+\end{figure}
+\fi
+
+\subsection{S13--S19: Retrospective Cross-Provider Calibration Summary}
+
+S13--S19 provide a retrospective calibration chain from automatic flags (S13) to manual adjudication (S14--S15) and uncertainty quantification (S16--S19) for the 304-episode cross-provider slice; this block is used for interpretation bounds, not effect estimation.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{Condensed retrospective calibration summary for S13--S19 (cross-provider API layer).}
+\begin{tabular}{lc}
+\toprule
+\textbf{Statistic} & \textbf{Value} \\
+\midrule
+Direct-endpoint episodes (paired slice) & 304 \\
+Auto-flagged episodes for manual review (S13) & 181/304 \\
+Manual clear positives among auto-flags (S14) & 1/181 (0.006) \\
+Dual-rubric three-way / binary agreement (S15) & 180/181 (0.994) / 181/181 (1.000) \\
+Pooled manual clear-positive rates (S16) & vanilla 1/152 vs RTG 0/152 \\
+One-sided 95\% upper bound for RTG clear-positive rate (S16) & 0.061 \\
+Current power at observed delta / required $n$ per arm for 80\% (S17) & 0.179 / 1117 \\
+Direction non-worsening scenarios (S18) & 4/5 \\
+$\Pr(\mathrm{RTG}\le\mathrm{Vanilla})$ prior-sensitivity range (S19) & [0.693, 0.820] \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s13_s19_summary}
+\end{table}
+
+Across S13--S19, the signal is directionally non-worsening under RTG but remains low-rate and underpowered.
+Detailed procedures and per-study evidence are mapped in Appendix~\ref{app:artifact_map} and \path{outputs/rebuttal_ready_packet_s13_s24.md}.
+
+\subsection{S20--S23: External-Calibration and Hidden-Miss Summary}
+
+S20--S23 calibrate hidden-miss risk and external agreement in audited negatives; this block bounds error modes rather than estimating prevalence.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{Condensed external-calibration summary for S20--S23.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Statistic} & \textbf{Value} \\
+\midrule
+S20 write-bearing auto-negative probe: hidden clear positives & 0/17 \\
+S20 one-sided 95\% upper bound on hidden clear-positive rate & 0.162 \\
+S21 independent blind packet: binary agreement & 36/36 (1.000) \\
+S21 hidden clear positives in audited negatives & 0/24 (0.000) \\
+S22 balanced decoupled packet size / binary agreement & 48 / 47/48 (0.979) \\
+S23 expanded single-external packet size / binary agreement & 54 / 52/54 (0.963) \\
+S23 hidden clear positives in audited negatives & 1/34 (0.029) \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s20_s23_summary}
+\end{table}
+
+The combined reading remains conservative: binary clear-vs-non-clear agreement is high, hidden clear misses are low but non-zero, and interpretation stays calibration-only.
+Detailed procedures and per-study evidence are mapped in Appendix~\ref{app:artifact_map} and \path{outputs/rebuttal_ready_packet_s13_s24.md}.
+
+\subsection{S24: Prospective Real-Platform Paired Continuation Starter Slice}
+
+S24 is retained as execution-validating prospective pilot evidence. In the corrected 6-pair starter slice (12 episodes), paired \texttt{any\_violation} is non-separating overall (0.50 vs 0.50; discordant 1 vs 1; exact McNemar $p=1.000$). The two 3-pair families show opposite directions, so this slice is sample-limited and not effect-estimating. Its value is procedural rather than directional: it demonstrates that the prospective matched-pair protocol, artifact packaging, and reporting schema can run end-to-end on a live endpoint without smuggling effect claims into the paper. The scoped C1--C3 conclusions are unchanged if one ignores this pilot for evidentiary weight; its role is to keep the prospective component auditable rather than purely schematic.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{S24 prospective real-platform paired continuation starter slice (execution-validating, non-separating).}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Slice} & \textbf{Pairs} & \textbf{Clean} & \textbf{Contam.} & \textbf{$\Delta$} & \textbf{Discordant} & \textbf{Exact $p$} \\
+\midrule
+Recovered-context write & 3 & 0.333 & 0.667 & 0.333 & 0 / 1 & 1.000 \\
+Tool-mediated recovery & 3 & 0.667 & 0.333 & -0.333 & 1 / 0 & 1.000 \\
+Overall starter slice & 6 & 0.500 & 0.500 & 0.000 & 1 / 1 & 1.000 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_s24_prospective_paired}
+\end{table}
+
+Interpretation boundary: S24 indicates protocol feasibility and reporting consistency, but not a stable contamination-effect estimate at current sample size; per-episode context is mapped in Appendix~\ref{app:artifact_map} and \path{outputs/rebuttal_ready_packet_s13_s24.md}.
+
+\subsection{Statistical Reporting Details for Section~\ref{sec:experiments}}
+
+For compactness, the main paper reports point estimates for detector and model comparisons, while this appendix collects supporting significance and uncertainty summaries. Tables~\ref{tab:supp_exp1_stats}--\ref{tab:supp_exp3_stats} report the pairwise detector tests used in Experiment~1 and exact 95\% binomial intervals for Experiments~2--3.
+
+\begin{table}[t]
+\centering
+\scriptsize
+\caption{Experiment~1 pairwise detector comparisons against StatePoisonBench.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Comparison} & \textbf{Matched-pair McNemar $p$} \\
+\midrule
+StatePoisonBench vs AgentDojo-style & $<10^{-18}$ \\
+StatePoisonBench vs HarmBench-style & $<10^{-18}$ \\
+StatePoisonBench vs Naive LLM query & $<10^{-18}$ \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_exp1_stats}
+\end{table}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Experiment~2 model-scaling rates with exact 95\% binomial intervals.}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Model} & \textbf{Vanilla} & \textbf{RTG} \\
+\midrule
+GPT-4o & 0.557 [0.526, 0.588] & 0.434 [0.403, 0.465] \\
+Claude-3.5-Sonnet & 0.595 [0.564, 0.626] & 0.443 [0.412, 0.474] \\
+Llama-3.1-70B & 0.709 [0.680, 0.737] & 0.533 [0.502, 0.564] \\
+DeepSeek-V3 & 0.615 [0.584, 0.645] & 0.449 [0.418, 0.480] \\
+Qwen2.5-72B & 0.654 [0.624, 0.683] & 0.473 [0.442, 0.504] \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_exp2_stats}
+\end{table}
+
+\begin{table}[H]
+\centering
+\scriptsize
+\caption{Experiment~3 turn-scaling rates with exact 95\% binomial intervals.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Turns} & \textbf{Violation Rate} \\
+\midrule
+1 & 0.16 [0.094, 0.247] \\
+3 & 0.22 [0.143, 0.314] \\
+5 & 0.29 [0.204, 0.389] \\
+10 & 0.41 [0.313, 0.513] \\
+20 & 0.76 [0.664, 0.840] \\
+50 & 0.97 [0.915, 0.994] \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_exp3_stats}
+\end{table}
+

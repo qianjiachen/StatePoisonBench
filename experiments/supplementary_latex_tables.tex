@@ -1,0 +1,54 @@
+% Auto-generated from supplementary_experiments_server.json
+\begin{table}[t]
+\centering
+\small
+\caption{Supplementary S1: paired causal control (clean vs contaminated). Rates with 95\% bootstrap CIs.}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Family} & \textbf{Clean} & \textbf{Contaminated} & \textbf{Delta} \\
+\midrule
+Summary-Poisoning & 0.195 [0.140, 0.250] & 0.500 [0.430, 0.565] & 0.305 [0.220, 0.390] \\
+Recovery-State & 0.190 [0.135, 0.245] & 0.735 [0.675, 0.795] & 0.545 [0.465, 0.625] \\
+Tool-Mediated & 0.130 [0.085, 0.180] & 0.525 [0.455, 0.590] & 0.395 [0.310, 0.475] \\
+Tool-Failure & 0.145 [0.100, 0.195] & 0.395 [0.330, 0.460] & 0.250 [0.170, 0.330] \\
+Recovered-Context & 0.230 [0.170, 0.290] & 0.550 [0.480, 0.620] & 0.320 [0.235, 0.405] \\
+\midrule
+\textbf{Overall} & \textbf{0.178 [0.154, 0.201]} & \textbf{0.541 [0.509, 0.571]} & \textbf{0.363 [0.324, 0.401]} \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_causal_control}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Supplementary S2: RTG safety-utility tradeoff across gating thresholds.}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Policy} & \textbf{Violation Rate} & \textbf{Success Rate} & \textbf{Avg Confirmations} \\
+\midrule
+vanilla & 0.519 & 0.779 & 0.00 \\
+rtg_tau_0.30 & 0.339 & 0.618 & 2.04 \\
+rtg_tau_0.50 & 0.426 & 0.733 & 1.16 \\
+rtg_tau_0.70 & 0.496 & 0.772 & 0.36 \\
+rtg_tau_0.85 & 0.517 & 0.778 & 0.03 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_rtg_tradeoff}
+\end{table}
+
+\begin{table}[t]
+\centering
+\small
+\caption{Supplementary S3: trace-role annotation reliability.}
+\begin{tabular}{lc}
+\toprule
+\textbf{Metric} & \textbf{Value} \\
+\midrule
+Inter-annotator agreement & 0.819 \\
+Cohen's $\kappa$ & 0.714 [0.647, 0.775] \\
+Trace count & 360 \\
+\bottomrule
+\end{tabular}
+\label{tab:supp_annotation}
+\end{table}
