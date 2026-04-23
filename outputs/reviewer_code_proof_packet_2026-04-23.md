@@ -235,10 +235,10 @@ This is not a hidden omission relative to the paper. It is the same release boun
 
 ## ED Hosting Plan
 
-Before OpenReview upload, replace the placeholders below with active anonymous links:
+Before OpenReview upload, use the active anonymous review repository:
 
-- Code URL: `<ANON_GITHUB_URL>`
-- Dataset / artifact URL: `<ANON_HF_DATASET_URL>`
+- Code URL: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
+- Dataset / artifact URL: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
 - OpenReview supplement: generated zip from `outputs/submission_packages/`
 
 The code repository should host the runnable benchmark package. The dataset/artifact host should mirror `tasks/`, `experiments/results/`, `DATASET_CARD.md`, `croissant_metadata.jsonld`, `DATA_LICENSE.md`, and the release-boundary documentation.

@@ -40,4 +40,4 @@ This snapshot records the artifact set used by the current ED submission-oriente
 - Do not upgrade `S14`, `S21`, `S23`, or `S24` into prevalence claims.
 - Do not upgrade RTG into a deployment-ready defense claim.
 - Treat `S13--S23` as an API calibration suite, and `S24` as a separate prospective execution-validating pilot rather than an effect-size estimate.
-- Replace `<ANON_GITHUB_URL>` and `<ANON_HF_DATASET_URL>` placeholders before OpenReview submission.
+- OpenReview code URL and dataset URL should both point to `https://anonymous.4open.science/r/StatePoisonBench-C1D2`.

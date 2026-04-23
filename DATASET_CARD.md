@@ -53,7 +53,7 @@ Not redistributed:
 
 The anonymous review package uses placeholder URLs:
 
-- `<ANON_GITHUB_URL>`
-- `<ANON_HF_DATASET_URL>`
+- `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
+- The same repository serves as the dataset/artifact URL during review.
 
-Replace these with active anonymous hosting links before OpenReview submission.
+This single anonymous repository is the reviewer-facing host for both code and benchmark artifacts during OpenReview.

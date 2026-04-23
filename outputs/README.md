@@ -15,6 +15,7 @@ Supporting material is grouped into stable subfolders:
 - `reference_audit/`: bibliography audits, key lists, and reference integrity artifacts
 - `e25/`: prospective paired-study notes, memos, and off-paper follow-up material
 - `submission_packages/`: generated anonymous ED reviewer packages and zip mirrors
+- `hf_dataset_packages/`: upload-ready Hugging Face Dataset payloads and zip mirrors
 - `archive/`: older benchmark buildout notes, superseded rebuttal packets, and supporting history
 
 When adding new files, keep the top level small and put historical or narrowly scoped notes into the appropriate subfolder.

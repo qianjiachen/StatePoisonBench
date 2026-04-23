@@ -5,7 +5,7 @@
 - Paper builds successfully from `neurips2026_submission/main.tex`.
 - `python experiments/check_table_artifact_consistency.py` reports `220/220` or a newer all-pass count.
 - Anonymous package contains runnable loader, evaluator, experiment scripts, tasks, results, and paper source.
-- README contains active anonymous GitHub and Hugging Face Dataset URLs.
+- README contains the active anonymous review repository URL.
 - Dataset card and Croissant metadata are included in the hosted dataset package.
 - License files and asset/license matrix are present.
 - Raw account-linked traces, compacted session artifacts, credentials, and private logs are absent.
@@ -14,7 +14,7 @@
 
 - Track: Evaluations & Datasets.
 - Code URL: anonymous GitHub repository.
-- Dataset/resource URL: anonymous Hugging Face Dataset.
+- Dataset/resource URL: the same anonymous review repository.
 - Supplement: generated anonymous code-proof zip.
 - Resource statement: exact synthetic replay, protocol replay for hosted endpoints, raw trace exclusion.
 

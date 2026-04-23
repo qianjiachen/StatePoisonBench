@@ -1,10 +1,10 @@
 # Anonymous Hosting Instructions
 
-Use two anonymous, reviewer-accessible URLs before OpenReview submission.
+Use one anonymous, reviewer-accessible repository URL before OpenReview submission.
 
 ## Code Repository
 
-Recommended target: anonymous GitHub repository or anonymous code-hosting mirror.
+Recommended target: the anonymous 4open/GitHub mirror for the review repository.
 
 Required contents:
 
@@ -24,9 +24,9 @@ Do not upload `_archive`, raw platform traces, API keys, private logs, or local 
 
 ## Dataset / Artifact Hosting
 
-Recommended target: anonymous Hugging Face Dataset.
+For the current submission plan, the same anonymous repository also serves as the dataset/artifact host.
 
-Required contents:
+Required reviewer-visible contents:
 
 - `tasks/*.jsonl`
 - `experiments/results/*.json`
@@ -39,10 +39,10 @@ Required contents:
 
 ## OpenReview Fields
 
-Use the following placeholders until the anonymous URLs are live:
+Use the following URL:
 
-- Code URL: `<ANON_GITHUB_URL>`
-- Dataset URL: `<ANON_HF_DATASET_URL>`
+- Code URL: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
+- Dataset URL: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
 - Supplement: upload the generated zip from `outputs/submission_packages/`
 
 After replacing placeholders, run an anonymity scan for author names, private paths, API keys, and account-linked trace names.

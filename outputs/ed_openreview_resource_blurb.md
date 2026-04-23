@@ -1,10 +1,8 @@
 # OpenReview Resource Blurb
 
-Use this text after replacing the placeholder URLs with active anonymous links.
+Code URL: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
 
-Code URL: `<ANON_GITHUB_URL>`
-
-Dataset / artifact URL: `<ANON_HF_DATASET_URL>`
+Dataset / artifact URL: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
 
 Supplement zip: `outputs/submission_packages/StatePoisonBench_CodeProof_Anonymous_2026-04-23.zip`
 

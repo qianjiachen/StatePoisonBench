@@ -4,11 +4,10 @@ StatePoisonBench is a benchmark methodology for persistent-state contamination i
 
 ## Reviewer Entry Points
 
-- Anonymous code repository: `<ANON_GITHUB_URL>`
-- Anonymous dataset/artifact hosting: `<ANON_HF_DATASET_URL>`
+- Anonymous code repository: `https://anonymous.4open.science/r/StatePoisonBench-C1D2`
+- Anonymous dataset/artifact hosting: same repository URL
 - OpenReview supplement: mirrors the same code-proof package as a fallback.
-
-Replace the placeholder URLs before submission. The local package is self-contained for the exact-replay layer.
+The local package is self-contained for the exact-replay layer.
 
 ## What Is Included
 
